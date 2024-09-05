@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Selection at Landon Winery</title>
+
+    <!-- Required scripts and styles -->
+
+      <!-- PROD -->
+      <script
+        data-pap-id="access-point-1724973073230-29ec4e20-f431-4e8f-bfcc-a5fa371df094"
+        type="module"
+        crossorigin
+        src="https://ai-workforce.intelligage.net/assets/main-BTieZgDY.js"
+        data-homebase-url="https://ai-worker.intelligage.workers.dev"
+      ></script> 
+      
+      
+      <link
+        rel="stylesheet"
+        crossorigin
+        href="https://ai-thing.pages.dev/assets/main-Ikf_a8jN.css"
+      />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light sky blue background for a fun vibe */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            color: #4b0082; /* Indigo text color for fun contrast */
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            color: #ff4500; /* OrangeRed title color */
+        }
+        .wine-item {
+            margin-top: 20px;
+            text-align: left;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 2px solid #ff4500;
+            background-color: #ff4500;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff6347; /* Tomato color on hover */
+        }
+        .wine-description {
+            margin-top: 20px;
+            text-align: left;
+        }
+        img.winery-image {
+            width: 80%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .video {
+            left: 4em;
+            top: 4em;
+            background-color: black;
+            color: white;
+            position: absolute;
+            padding: 20px;
+            margin-right: 5em;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://cdn2.hubspot.net/hubfs/462842/Content%20-%20Inbound/Blogs/BLOG%20-%205%20Things%20Winning%20Wineries%20Get%20Right.jpg" alt="Winery Image" class="winery-image">
+    <div class="container">
+        <h1>Choose Your Wine at Landon Winery</h1>
+        
+    <div class="wine-item">
+        <input type="radio" id="PINOT_GRIGIO" name="wine-kind" value="PINOT_GRIGIO">
+        <label for="PINOT_GRIGIO">PINOT GRIGIO | Light dry, pleasingly tart with softening hints of melon</label>
+    </div>
+    
+    <div class="wine-item">
+        <input type="radio" id="SAUVIGNON_BLANC" name="wine-kind" value="SAUVIGNON_BLANC">
+        <label for="SAUVIGNON_BLANC">SAUVIGNON BLANC | Herbal aromas of gooseberry & honeydew; tart crisp flavor, clean dry finish</label>
+    </div>
+    
+    <div class="wine-item">
+        <input type="radio" id="CHARDONNAY" name="wine-kind" value="CHARDONNAY">
+        <label for="CHARDONNAY">CHARDONNAY | Fresh, buttery wine with tropical citrus aromas & flavors</label>
+    </div>
+    
+        <button onclick="showSelectedWine()">Select Wine</button>
+        <div class="wine-description" id="wine-description"></div>
+    </div>
+
+    <div class="video">
+      Video
+      <video id="video" />
+    </div>
+
+    <script>
+        function showSelectedWine() {
+            let selectedWine = document.querySelector('input[name="wine"]:checked').value;
+            document.getElementById("wine-description").innerText = "You selected: " + selectedWine;
+        }
+    </script>
+</body>
+</html>

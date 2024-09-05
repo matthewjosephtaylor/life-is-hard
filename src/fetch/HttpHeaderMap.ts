@@ -1,0 +1,34 @@
+export type HttpHeaderMap = Record<string, string> & Partial<{
+  Accept?: string;
+  'Accept-Charset'?: string;
+  'Accept-Encoding'?: string;
+  'Accept-Language'?: string;
+  Authorization?: string;
+  'Cache-Control'?: string;
+  'Content-Disposition'?: string;
+  'Content-Encoding'?: string;
+  'Content-Length'?: string;
+  'Content-Type'?: string;
+  Cookie?: string;
+  Date?: string;
+  Expect?: string;
+  From?: string;
+  Host?: string;
+  'If-Match'?: string;
+  'If-Modified-Since'?: string;
+  'If-None-Match'?: string;
+  'If-Range'?: string;
+  'If-Unmodified-Since'?: string;
+  'Max-Forwards'?: string;
+  Origin?: string;
+  Pragma?: string;
+  Range?: string;
+  Referer?: string;
+  'TE'?: string;
+  'User-Agent'?: string;
+  'WWW-Authenticate'?: string;
+  'X-Content-Type-Options'?: string;
+  'X-Frame-Options'?: string;
+  'X-XSS-Protection'?: string;
+  // Add more headers as needed
+}>;
