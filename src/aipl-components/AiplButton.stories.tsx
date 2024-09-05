@@ -42,7 +42,12 @@ export const Play: StoryObj<StoryProps> = {
     <AiplComponentProvider
       config={{ ...mockConfig, papId, homeUrl: aiplHomeUrl }}
     >
-      <AiplButton onAction={(context) => {}} {...args} />
+      <AiplButton
+        onAction={(context) => {
+          console.log("context", context);
+        }}
+        {...args}
+      />
     </AiplComponentProvider>
   ),
   args: {

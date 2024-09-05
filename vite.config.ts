@@ -29,16 +29,16 @@ export default defineConfig({
     __APP_VERSION__: JSON.stringify(version),
 
     // Local dev settings
-    __HOME_BASE__: JSON.stringify("http://localhost:8787"),
-    __PAP_ID__: JSON.stringify(
-      "access-point-1725394696984-a760a179-851e-48d0-b276-85e7a426239c"
-    ),
+    // __HOME_BASE__: JSON.stringify("http://localhost:8787"),
+    // __PAP_ID__: JSON.stringify(
+    //   "access-point-1725394696984-a760a179-851e-48d0-b276-85e7a426239c"
+    // ),
 
     // Production settings
-    // __HOME_BASE__: JSON.stringify("https://ai-worker.intelligage.workers.dev"),
-    // __PAP_ID__: JSON.stringify(
-    //   "access-point-1725571260862-23455f95-1253-4dfe-96e3-952ac6af647c"
-    // ),
+    __HOME_BASE__: JSON.stringify("https://ai-worker.intelligage.workers.dev"),
+    __PAP_ID__: JSON.stringify(
+      "access-point-1725571260862-23455f95-1253-4dfe-96e3-952ac6af647c"
+    ),
     __APP_FRONT__: JSON.stringify("pizza-demo"),
   },
 });
