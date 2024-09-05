@@ -1,7 +1,6 @@
 import { ComponentProps } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { AiplComponentProvider } from "../provider/AiplComponentProvider";
-import { playTypes } from "../play/play";
 import { AiplSelect } from "./AiplSelect";
 import { mockConfig } from "./mockConfig";
 

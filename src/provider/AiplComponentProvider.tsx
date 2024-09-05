@@ -7,6 +7,8 @@ import {
 } from "../aipl-components/AiplComponentContextState.ts";
 import { AiplComponentContext } from "./AiplComponentContext.tsx";
 import { AppEvents } from "../event/AppEvents.ts";
+import { useAppState } from "../state/app/AppState.ts";
+import { useAppModesAndParams } from "../state/location/useAppModesAndParams.ts";
 
 let aiplClient: AiplClient | undefined = undefined;
 
@@ -14,16 +16,24 @@ export const AiplComponentProvider = ({
   config,
   children,
 }: {
-  config: AiplComponentContextConfig;
+  config: Partial<AiplComponentContextConfig>;
   children: ReactNode;
 }) => {
+  const { hashParams } = useAppModesAndParams();
+
+  const { aiBaseUrl } = useAppState();
+  const accessPointId = config.papId ?? hashParams.papId;
+  const homeUrl = config.homeUrl ?? aiBaseUrl;
   const [state, setState] = useState<AiplComponentContextState>({
     ...config,
+    homeUrl,
+    papId: accessPointId,
     componentState: {},
     updateComponentState: (componentState) => {
       setState((s) => ({ ...s, componentState }));
     },
   });
+
   useEffect(() => {
     if (isDefined(aiplClient)) {
       return setState((s) => ({ ...s, client: aiplClient }));
@@ -31,7 +41,7 @@ export const AiplComponentProvider = ({
     const client = createAiplClient({ url: config.homeUrl });
     aiplClient = client;
     setState((s) => ({ ...s, client: aiplClient }));
-    client.papAuth({ accessPointId: config.papId }).then(() => {
+    client.papAuth({ accessPointId }).then(() => {
       console.log("aipl-client authorized");
     });
   }, [config]);

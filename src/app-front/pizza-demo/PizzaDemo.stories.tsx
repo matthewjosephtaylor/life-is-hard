@@ -1,10 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react/*";
 import type { ComponentProps } from "react";
-import { AiplComponentProvider } from "../provider/AiplComponentProvider";
-import type { AiplComponentContextConfig } from "../type/AiplComponentContextState";
+import { mockConfig } from "../../aipl-components/mockConfig";
 import { PizzaDemo } from "./PizzaDemo";
-import { AiplSelect } from "../component/AiplSelect";
-import { mockConfig } from "../component/mockConfig";
+import { PizzaDemoFront } from "./PizzaDemoFront";
 
 type StoryProps = ComponentProps<typeof PizzaDemo> & {
   papId: string;
@@ -24,11 +22,12 @@ export default meta;
 
 export const Demo: StoryObj<StoryProps> = {
   render: ({ papId, aiplHomeUrl, ...args }) => (
-    <AiplComponentProvider
-      config={{ ...mockConfig, papId, homeUrl: aiplHomeUrl }}
-    >
-      <PizzaDemo {...args} />
-    </AiplComponentProvider>
+    <PizzaDemoFront />
+    // <AiplComponentProvider
+    //   config={{ ...mockConfig, papId, homeUrl: aiplHomeUrl }}
+    // >
+    //   <PizzaDemo {...args} />
+    // </AiplComponentProvider>
   ),
   args: {
     papId: mockConfig.papId,

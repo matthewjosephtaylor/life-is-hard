@@ -47,6 +47,11 @@ bun start
 
 There are several other scripts in the package.json. Most of these are for deploying this project as the front-end of the AI-Workforce project. Feel free to use them as an example if you wish to deploy to your own server. We use Cloudflare Pages for our deployments, but the build is a static site and can be deployed to any static site host.
 
+
+## Further Documentation
+For more information on how to use this project, please refer to the online project documention [documentation](docs/README.md).
+
+
 ## Contributing
 
 We welcome contributions to this project. Please submit a pull request with your changes. We will review and merge them as soon as possible.

@@ -3,7 +3,6 @@ import { ComponentProps } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import type { AiplComponentContextConfig } from "./AiplComponentContextState";
 import { AiplComponentProvider } from "../provider/AiplComponentProvider";
-import { playAsk, playTypes } from "../play/play";
 import { mockConfig } from "./mockConfig";
 
 type StoryProps = ComponentProps<typeof AiplButton> & {
@@ -43,12 +42,7 @@ export const Play: StoryObj<StoryProps> = {
     <AiplComponentProvider
       config={{ ...mockConfig, papId, homeUrl: aiplHomeUrl }}
     >
-      <AiplButton
-        onAction={(context) => {
-          playAsk(context);
-        }}
-        {...args}
-      />
+      <AiplButton onAction={(context) => {}} {...args} />
     </AiplComponentProvider>
   ),
   args: {
