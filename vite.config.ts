@@ -1,6 +1,9 @@
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import { version } from './package.json'; // Import version from package.json
+
+
 export default defineConfig({
   build: {
     // sourcemap: true,
@@ -23,7 +26,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     __BUILD_TIMESTAMP__: JSON.stringify(new Date().toISOString()),
-    __APP_VERSION__: JSON.stringify("1.0.0"),
+    __APP_VERSION__: JSON.stringify(version),
 
     // Local dev settings
     __HOME_BASE__: JSON.stringify("http://localhost:8787"),
