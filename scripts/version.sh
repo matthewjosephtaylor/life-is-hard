@@ -12,6 +12,7 @@ git commit -m "Update version to $VERSION"
 
 # Tag the commit with the version
 git tag "$VERSION"
-git push --tags
-git push
+git remote | xargs -I {} git push {} --tags
+git remote | xargs -I {} git push {} --all
+
 
