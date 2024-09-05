@@ -10,9 +10,10 @@ export const findHomebaseUrl = (): string | undefined => {
 
   // DANGER we need to determine which backend to connect to based on how the UI is accessed
   // IF/when new environments are added this will need to be updated/maintained
-  let homeBaseUrl: string | undefined = "http://localhost:8787";
+  // let homeBaseUrl: string | undefined = "http://localhost:8787";
   // let homeBaseUrl = "https://ai-worker.mjtdev.workers.dev";
   // let homeBaseUrl = "https://ai-worker.intelligage.workers.dev";
+  let homeBaseUrl: string | undefined = __HOME_BASE__;
   if (/intelligage/i.test(location.hostname)) {
     homeBaseUrl = "https://ai-worker.intelligage.workers.dev";
   }
