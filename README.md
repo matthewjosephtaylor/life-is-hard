@@ -49,7 +49,10 @@ There are several other scripts in the package.json. Most of these are for deplo
 
 
 ## Further Documentation
-For more information on how to use this project, please refer to the online project documention [documentation](docs/README.md).
+For more information on how to use this project, please refer to the [project docs folder](./project-docs/) for how to extend this project for your use-case.
+
+- [App Front](./project-docs/app-front.md)
+- [Intro to PAPs](./project-docs/intro-to-paps.md)
 
 
 ## Contributing

@@ -1,7 +1,7 @@
 import { isDefined, isUndefined, Reacts } from "@mjtdev/engine";
 import { getAppModesAndParams } from "../state/location/getAppModesAndParams";
 import { findAppContainer } from "./findAppContainer";
-import { APP_FRONTS } from "../app-front/pizza-demo/APP_FRONTS";
+import { APP_FRONTS } from "../app-front/APP_FRONTS";
 
 export const App = async () => {
   const container = findAppContainer();

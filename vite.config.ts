@@ -1,8 +1,7 @@
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import { defineConfig } from "vite";
-import { version } from './package.json'; // Import version from package.json
-
+import { version } from "./package.json"; // Import version from package.json
 
 export default defineConfig({
   build: {
