@@ -1,18 +1,15 @@
-import { useContext, type ButtonHTMLAttributes } from "react";
-import { AiplComponentContext } from "../provider/AiplComponentContext";
+import { type ButtonHTMLAttributes } from "react";
 import type { AiplComponentContextState } from "./AiplComponentContextState";
+import { useAiplComponentContext } from "./useAiplComponentContext";
 
 export const AiplButton = (
   props: ButtonHTMLAttributes<HTMLButtonElement> & {
     aiplName: string;
-    onAction?: (
-      context: AiplComponentContextState,
-      aiplName: string
-    ) => void;
+    onAction?: (context: AiplComponentContextState, aiplName: string) => void;
   }
 ) => {
   const { children, aiplName, onAction, ...rest } = props;
-  const context = useContext(AiplComponentContext);
+  const context = useAiplComponentContext();
 
   return (
     <button
