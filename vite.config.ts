@@ -36,8 +36,9 @@ export default defineConfig({
     // Production settings
     __HOME_BASE__: JSON.stringify("https://ai-worker.intelligage.workers.dev"),
     __PAP_ID__: JSON.stringify(
-      "access-point-1725571260862-23455f95-1253-4dfe-96e3-952ac6af647c"
+      // "access-point-1725571260862-23455f95-1253-4dfe-96e3-952ac6af647c"
+      "access-point-1725729203924-2cf4d59d-806b-4f4f-83fc-a6e086436ea0"
     ),
-    __APP_FRONT__: JSON.stringify("pizza-demo"),
+    __APP_FRONT__: JSON.stringify("life-is-hard"),
   },
 });
