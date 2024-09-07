@@ -13,13 +13,13 @@ export const UnobtrusiveErrorToaster = () => {
   AppEvents.useEventListener(
     "error",
     (evt) => {
-      if (modes.includes("pap")) {
-        console.log(
-          "UnobtrusiveErrorToaster: refusing to show error in PAP mode",
-          evt.detail
-        );
-        return;
-      }
+      // if (modes.includes("pap")) {
+      //   console.log(
+      //     "UnobtrusiveErrorToaster: refusing to show error in PAP mode",
+      //     evt.detail
+      //   );
+      //   return;
+      // }
       setState(
         produce(state, (s) => {
           s.errors.push(evt.detail);
