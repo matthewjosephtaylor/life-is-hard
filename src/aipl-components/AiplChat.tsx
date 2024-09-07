@@ -1,23 +1,25 @@
-import { PopupDisplay } from "@mjtdev/engine";
+import { isUndefined, PopupDisplay } from "@mjtdev/engine";
 import { Button, Flex, Theme } from "@radix-ui/themes";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { UnobtrusiveErrorToaster } from "../error/UnobtrusiveErrorToaster";
 import { useAppState } from "../state/app/AppState";
 import { AppLockout } from "../ui/AppLockout";
 import { ChatWindow } from "../ui/chat/ChatWindow";
-import { hideLoadingScreen } from "../ui/hideLoadingScreen";
 import { AppPopup } from "../ui/popup/AppPopup";
 import { ToastDisplay } from "../ui/toast/ToastDisplay";
 
 import { RiCloseCircleLine } from "react-icons/ri";
 import { AppIconButton } from "../ui/common/AppIconButton";
 
-// import radixStyles from "@radix-ui/themes/styles.css";
-// import "@radix-ui/themes/styles.css";
+import { AppEvents } from "../event/AppEvents";
 import { AiplComponentContext } from "../provider/AiplComponentContext";
-// import styles from "@radix-ui/themes/styles.css";
+import type { AiplComponentContextState } from "./AiplComponentContextState";
 
-export const AiplChat = () => {
+export const AiplChat = ({
+  onUpdate = () => {},
+}: {
+  onUpdate?: (context: AiplComponentContextState) => void;
+}) => {
   const { appearance = "dark" } = useAppState();
   const [state, setState] = useState({
     open: false,
@@ -28,6 +30,17 @@ export const AiplChat = () => {
       "AiplFormConfigContext is not provided, make sure to wrap your component with AiplFormConfigProvider"
     );
   }
+  AppEvents.useEventListener(
+    "client:aiplComponentUpdate",
+    (message) => {
+      const { data: componentState } = message.detail;
+      if (isUndefined(componentState)) {
+        return;
+      }
+      onUpdate(context);
+    },
+    [onUpdate]
+  );
 
   return (
     <Theme
