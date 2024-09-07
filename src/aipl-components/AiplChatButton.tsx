@@ -1,5 +1,5 @@
 import { isUndefined, PopupDisplay } from "@mjtdev/engine";
-import { Button, Flex, Theme } from "@radix-ui/themes";
+import { Button, Flex, Theme, type ThemeProps } from "@radix-ui/themes";
 import { useContext, useState } from "react";
 import { UnobtrusiveErrorToaster } from "../error/UnobtrusiveErrorToaster";
 import { useAppState } from "../state/app/AppState";
@@ -15,11 +15,12 @@ import { AppEvents } from "../event/AppEvents";
 import { AiplComponentContext } from "../provider/AiplComponentContext";
 import type { AiplComponentContextState } from "./AiplComponentContextState";
 
-export const AiplChat = ({
+export const AiplChatButton = ({
   onUpdate = () => {},
+  ...rest
 }: {
   onUpdate?: (context: AiplComponentContextState) => void;
-}) => {
+} & ThemeProps) => {
   const { appearance = "dark" } = useAppState();
   const [state, setState] = useState({
     open: false,
@@ -57,6 +58,7 @@ export const AiplChat = ({
         pointerEvents: "auto",
       }}
       appearance={appearance}
+      {...rest}
     >
       <Flex
         direction={"column"}

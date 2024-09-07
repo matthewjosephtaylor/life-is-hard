@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { AiplChat } from "../../aipl-components/AiplChat";
+import { AiplChatButton } from "../../aipl-components/AiplChatButton";
 import { AiplInput } from "../../aipl-components/AiplInput";
 import { AiplRadioGroup } from "../../aipl-components/AiplRadioGroup";
 import { AiplSelect } from "../../aipl-components/AiplSelect";
@@ -158,7 +158,7 @@ export const PizzaDemo = () => {
           <button>Place Order</button>
         </div>
       </PizzaContainer>
-      <AiplChat />
+      <AiplChatButton />
     </div>
   );
 };
