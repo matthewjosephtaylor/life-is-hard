@@ -1,5 +1,5 @@
 import type { AppMessageMap } from "ai-worker-common";
-import { addReturnListener } from "../../client/addReturnListener";
+import { addReturnListener } from "../data-object/addReturnListener";
 import { dispatch } from "./AppMessagesState";
 
 export const call = <T extends keyof AppMessageMap>(
