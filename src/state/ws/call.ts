@@ -1,10 +1,8 @@
 import type { AppMessageMap } from "ai-worker-common";
-import { addReturnListener } from "./addReturnListener";
-import { AiplClientMessages } from "./AiplClientMessages";
-import type { AiplClientContext } from "./AiplClients";
+import { addReturnListener } from "../../client/addReturnListener";
+import { dispatch } from "./AppMessagesState";
 
 export const call = <T extends keyof AppMessageMap>(
-  ctx: AiplClientContext,
   type: T,
   detail: Omit<AppMessageMap[T], "returnId">
 ): Promise<unknown> => {
@@ -17,7 +15,7 @@ export const call = <T extends keyof AppMessageMap>(
         reject(`timeout waiting for response for ${returnId}`);
       },
     });
-    AiplClientMessages.dispatch(ctx, {
+    dispatch({
       type,
       detail: { ...detail, returnId } as AppMessageMap[T],
     });

@@ -3,7 +3,6 @@ import { DataObjectStates } from "../../state/data-object/DataObjectStates";
 import { switchWindow } from "../switchWindow";
 
 export const openChat = async (chatId: string) => {
-  DataObjectStates.findDataObject(chatId);
   DataObjectStates.findChildDataObjects(chatId, "chat-message");
 
   // const appInterfaceId = DataObjectStates.getSingletonId("app-interface");

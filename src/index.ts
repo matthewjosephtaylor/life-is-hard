@@ -68,7 +68,6 @@ import { findFirstPapId } from "./ui/overlay/findFirstPapId";
       // location.pathname.replaceAll("/", ""),
       locationState.params
     );
-    console.log(`index: PAP chat ID: ${chatId}`);
   }
 
   if (
@@ -85,9 +84,6 @@ import { findFirstPapId } from "./ui/overlay/findFirstPapId";
     });
   }
 
-  console.log(
-    `connected rendering app: agreedToTerms: ${getAppState().agreedToTerms}`
-  );
   updateAppState((s) => {
     s.agreedToTerms = true;
   });

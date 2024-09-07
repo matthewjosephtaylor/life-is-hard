@@ -6,6 +6,7 @@ import {
 } from "ai-worker-common";
 import { subscribeToDataObjects } from "./subscribeToDataObjects";
 import { waitForWs } from "./waitForWs";
+import { call } from "./call";
 
 // Cloudflare max WS message size
 const MAX_WS_MESSAGE_SIZE = 1024 * 1024;
@@ -71,6 +72,7 @@ export const dispatchAll = async (messages: AppMessage[]) => {
 };
 
 export const AppMessagesState = {
+  call,
   dispatch,
   dispatchAll,
   subscribeToDataObjects,

@@ -11,7 +11,6 @@ export const askChatForSuggestions = async ({
   chat?: Chat;
   toolConfig?: ToolConfig;
 }) => {
-  console.log("askSuggestions", chat);
   if (!chat) {
     return;
   }
@@ -35,7 +34,6 @@ export const askChatForSuggestions = async ({
   const streamId = Returns.addStreamListener<string>({
     stream: true,
     onData: (answer) => {
-      console.log("askSuggestions data", answer);
       openSuggestionPopup({
         chat,
         toolConfig,
@@ -46,10 +44,9 @@ export const askChatForSuggestions = async ({
 
   const returnId = Returns.addReturnListener<string>({
     onTimeout: () => {
-      console.log("askSuggestions timed out");
+      console.warn("askSuggestions timed out");
     },
     onReturn: (answer) => {
-      console.log("askSuggestions return", answer);
       openSuggestionPopup({
         chat,
         toolConfig,

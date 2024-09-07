@@ -81,8 +81,6 @@ export const ChatBox = memo(
     );
     useEffect(() => {
       if (isDefined(aiCharacter?.imageDataId)) {
-        console.log("aiCharacter", aiCharacter);
-
         Datas.getRemoteData({
           id: aiCharacter.imageDataId,
           ...getHomeAuth(),
@@ -91,10 +89,8 @@ export const ChatBox = memo(
             return;
           }
           const blob = await resp.blob();
-          const { videoPack } = await AppImages.pngToTavernCardAndVoiceSample(
-            blob
-          );
-          console.log("videoPack!!!!!", videoPack);
+          const { videoPack } =
+            await AppImages.pngToTavernCardAndVoiceSample(blob);
           if (isDefined(videoPack)) {
             const videos = AppVideos.videoPackToVideoRecords(videoPack);
             setGreetingVideo(videos["greeting"]);

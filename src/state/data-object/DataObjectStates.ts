@@ -362,7 +362,7 @@ export const useChildDataObjectIds = <T extends AppObjectType = AppObjectType>(
 };
 
 export const getChildDataObjectIds = async <
-  T extends AppObjectType = AppObjectType
+  T extends AppObjectType = AppObjectType,
 >(
   parentId: string | undefined,
   objectType: T,
@@ -391,7 +391,7 @@ export const useChildDataObjects = <T extends AppObjectType = AppObjectType>(
 };
 
 export const useChildDataObjectsLoading = <
-  T extends AppObjectType = AppObjectType
+  T extends AppObjectType = AppObjectType,
 >(
   parentId: string | undefined,
   objectType: T,
@@ -410,7 +410,7 @@ export const useChildDataObjectsLoading = <
 };
 
 export const getChildDataObjects = async <
-  T extends AppObjectType = AppObjectType
+  T extends AppObjectType = AppObjectType,
 >(
   parentId: string | undefined,
   objectType: T,
@@ -430,14 +430,6 @@ export const getChildDataObjects = async <
   const objects = await swrDataObjectChildrenFetcher(swrKey);
   mutateSwrCache(swrKey, objects);
   return objects;
-};
-
-export const findDataObject = (dataObjectId: string | string[]) => {
-  console.log("TBD remove findDataObject");
-  // AppMessagesState.dispatch({
-  //   type: "dataObject:find",
-  //   detail: dataObjectId,
-  // });
 };
 
 export const findAllDataObjectsByObjectType = (
@@ -545,7 +537,6 @@ export const DataObjectStates = {
   getChildDataObjects,
   useChildDataObjectsLoading,
   getChildDataObjectIds,
-  findDataObject,
   findChildDataObjects,
   useDataObject,
   useDataObjectsByType,
@@ -560,20 +551,14 @@ export const DataObjectStates = {
   deleteDataObject,
   upsertDataLink,
   deleteDataLink,
-  // useSingletonId,
-  // getSingletonId,
   useAccessInfo,
   getAccessInfo,
-  // mutateAccessInfo,
 
   activateLinkInChildren,
   findAllDataObjectsByObjectType,
-  // getAllDataObjects,
   setDataObject,
   setDataObjectChildren,
-  // setDataLink,
   setAccessInfo,
   dumpDataObjects,
-  // invalidateDataObject,
   invalidate,
 };
