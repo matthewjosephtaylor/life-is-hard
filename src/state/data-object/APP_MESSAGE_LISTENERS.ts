@@ -24,10 +24,8 @@ export const APP_MESSAGE_LISTENERS: {
   "chat:start": [
     (message) => {
       const chat = message.detail;
-      console.log("GOT START!!!!!!!!!!!!!!!!!!!!!!!!!!!", chat);
       if (isDefined(chat?.id)) {
         AppModes.upsertHashParam("chatId", chat.id);
-        console.log("upserting param", chat.id);
         switchWindow("chat");
       } else {
         console.log("got empty chat, unsetting chatId ");
@@ -193,7 +191,6 @@ export const APP_MESSAGE_LISTENERS: {
   ],
   "appInterface:update": [
     (message) => {
-      console.log("-----------------APP INT UP--------", message.detail);
       const { gisClientId, appInterfaceId } = message.detail;
       updateAppState((s) => {
         if (appInterfaceId) {

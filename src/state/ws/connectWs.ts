@@ -1,14 +1,12 @@
-import { Apps, uniqueId } from "ai-worker-common";
+import { Apps } from "ai-worker-common";
 import { waitTimeout } from "../../common/waitTimeout";
 import { AppEvents } from "../../event/AppEvents";
 import { updateServiceStatus } from "../../ui/status/ServiceStatus";
 import { getAppState, updateAppState } from "../app/AppState";
-// import { setupDataObjectSubs } from "./setupDataObjectSubs";
-import { setupWsOnMessage } from "./setupWsOnMessage";
-import { sendWsAuth } from "./sendWsAuth";
-import { AppMessagesState } from "./AppMessagesState";
 import { SwrCaches } from "../data-object/SwrCaches";
-import { setCookie } from "./setCookie";
+import { AppMessagesState } from "./AppMessagesState";
+import { sendWsAuth } from "./sendWsAuth";
+import { setupWsOnMessage } from "./setupWsOnMessage";
 
 export const connectWs = async (
   params: Partial<{
@@ -24,21 +22,11 @@ export const connectWs = async (
     baseUrl = getAppState().aiBaseUrl,
     appInterfaceId = getAppState().appInterfaceId,
     path = "/ws",
-    // sessionId = `session-${Date.now()}-${crypto.randomUUID()}`,
     maxRetries = 10,
   } = params;
   let { retryBackoffMs = 1000 } = params;
   console.log(`connectWs baseUrl: ${baseUrl}`);
 
-  // make sure we don't have multiple connections
-  // disconnectWs();
-  // if (getAppState().wsConnecting) {
-  //   console.log("refusing to attempt connect, already in connecting state");
-  //   return;
-  // }
-  // updateAppState((s) => {
-  //   s.wsConnecting = true;
-  // });
   updateServiceStatus((s) => {
     s.services.ws = "busy";
   });
@@ -57,9 +45,6 @@ export const connectWs = async (
       (resolve, reject) => {
         try {
           const wsUrl = `${baseUrl?.replace(/^http/, "ws")}${path}`;
-          console.log(`connecting to: ${wsUrl}`);
-          // console.log(`sessionId: ${sessionId}`);
-          // setCookie("sessionId", sessionId);
           const connectingWs = new WebSocket(wsUrl);
           connectingWs.binaryType = "arraybuffer";
           let resolved = false;

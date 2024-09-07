@@ -1,5 +1,5 @@
 import type { AiplClientContext } from "./AiplClients";
-import { call } from "./call";
+import { call } from "../state/ws/call";
 
 export const userLogin = async ({
   userName,

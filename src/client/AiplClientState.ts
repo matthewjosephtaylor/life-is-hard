@@ -1,14 +1,12 @@
-import { createState } from "@mjtdev/engine";
-
 export type AiplClientState = Partial<{
-  homebaseUrl: string;
-  ws: WebSocket;
-  sessionId: string;
-  appInterfaceId: string;
-  authToken: string;
+  // homebaseUrl: string;
+  // ws: WebSocket;
+  // sessionId: string;
+  // appInterfaceId: string;
+  // authToken: string;
 
-  connectionPath: string;
-  maxRetries: number;
-  retryBackoffMs: number;
-  connecting: boolean;
+  // connectionPath: string;
+  // maxRetries: number;
+  // retryBackoffMs: number;
+  // connecting: boolean;
 }>;

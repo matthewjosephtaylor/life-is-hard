@@ -2,24 +2,23 @@ import { Colors, Reacts } from "@mjtdev/engine";
 import { Card, Flex } from "@radix-ui/themes";
 import type { AppCharacter, Chat } from "ai-worker-common";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useToolConfig } from "../../../aipl-components/useToolConfig";
 import { useCustomAsrState } from "../../../asr-custom/updateCustomAsrState";
 import { AppEvents } from "../../../event/AppEvents";
 import { useAppState } from "../../../state/app/AppState";
 import { ChatStates } from "../../../state/chat/ChatStates";
 import { DataObjectStates } from "../../../state/data-object/DataObjectStates";
 import { AppModes } from "../../../state/location/AppModes";
-import { useIsUserGroup } from "../../../state/user/useIsUserGroup";
+import { interruptTts } from "../../../tts/custom/interruptTts";
 import { CharacterAvatar } from "../../character/CharacterAvatar";
 import type { AppTextAreaRef } from "../../common/AppTextArea";
 import { AppTextArea } from "../../common/AppTextArea";
+import { useIsPlayground } from "../../playground/useIsPlayground";
 import { AudioContextVisualization } from "../AudioContextVisualization";
 import { AdvancedChatEntryControls } from "./AdvancedChatEntryControls";
 import { BasicChatEntryControls } from "./BasicChatEntryControls";
 import { ChatStartersDisplay } from "./ChatStartersDisplay";
-import { useIsPlayground } from "../../playground/useIsPlayground";
-import { interruptTts } from "../../../tts/custom/interruptTts";
-import { useToolConfig } from "../../../aipl-components/useToolConfig";
 
 export const ChatTextEntry = ({ chat }: { chat: Chat }) => {
   const isPlayground = useIsPlayground();
@@ -32,11 +31,6 @@ export const ChatTextEntry = ({ chat }: { chat: Chat }) => {
     chat?.userCharacterId
   );
   const toolConfig = useToolConfig();
-  useEffect(() => {
-    if (chat.userCharacterId) {
-      DataObjectStates.findDataObject(chat.userCharacterId);
-    }
-  }, [chat.userCharacterId]);
 
   const { appearance } = useAppState();
 
