@@ -1,7 +1,14 @@
-import React, { useState } from "react";
-import { Box, Typography, IconButton } from "@mui/material";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import styled from "@emotion/styled";
+import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import { AiplChatWindow } from "../src/aipl-components/AiplChatWindow";
+import { AiplInput } from "../src/aipl-components/AiplInput";
+import { AiplComponentContext } from "../src/provider/AiplComponentContext";
+import { TextBox } from "./common/TextBox";
+import { StoryForm } from "./StoryForm";
+import { AiplButton } from "../src/aipl-components/AiplButton";
+import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
 
 // Define the type for the open prop
 interface DrawerContentProps {
@@ -48,13 +55,13 @@ const DrawerHandle = styled(Box)`
 
 const MainContent = styled(Box)`
   flex-grow: 1;
-  padding: 2em;
-  background-color: #ecf0f1;
+  /* padding: 2em; */
   overflow-y: auto;
 `;
 
 export const TopLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
+  const ctx = useAiplComponentContext();
 
   // Toggle drawer open/close
   const toggleDrawer = () => {
@@ -62,7 +69,7 @@ export const TopLayout = () => {
   };
 
   return (
-    <Box display="flex" height="100vh">
+    <Box display="flex" height="100%" width="100%">
       {/* Drawer container */}
       <DrawerContainer>
         <DrawerContent open={drawerOpen}>
@@ -88,13 +95,32 @@ export const TopLayout = () => {
 
       {/* Main content area */}
       <MainContent>
-        <Typography variant="h4" gutterBottom>
-          Story Area
-        </Typography>
-        <Typography variant="body1">
-          This is where the story content will be displayed. You can show
-          dialogs, choices, and other interactions with the player here.
-        </Typography>
+        <Stack direction={"row"}>
+          <Stack flexGrow={"1"}>
+            <StoryForm />
+            <Button
+              onClick={() => {
+                console.log("New Chat");
+                ctx?.client?.startChat();
+              }}
+            >
+              New Chat
+            </Button>
+          </Stack>
+          <Stack>
+            <AiplChatWindow
+              style={{
+                minWidth: "40ch",
+                maxWidth: "80ch",
+                width: "100%",
+              }}
+              onUpdate={async (ctx) => {
+                console.log("--- updated ---");
+                console.log(ctx.componentState);
+              }}
+            />
+          </Stack>
+        </Stack>
       </MainContent>
     </Box>
   );
