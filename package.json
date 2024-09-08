@@ -64,8 +64,8 @@
     "storybook": "^8.2.9"
   },
   "dependencies": {
-    "@mjtdev/engine": "https://github.com/matthewjosephtaylor/mjtdev-engine#20240908.1758",
-    "ai-worker-common": "https://github.com/AIPL-labs/ai-worker-common#20240908.1731",
+    "@mjtdev/engine": "https://github.com/matthewjosephtaylor/mjtdev-engine#20240908.1811",
+    "ai-worker-common": "https://github.com/AIPL-labs/ai-worker-common#20240908.1819",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@lunapaint/png-codec": "^0.2.0",
