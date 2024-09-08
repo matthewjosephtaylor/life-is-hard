@@ -1,6 +1,6 @@
 {
   "name": "ai-ui",
-  "version": "20240908.1733",
+  "version": "20240908.1747",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -64,7 +64,7 @@
     "storybook": "^8.2.9"
   },
   "dependencies": {
-    "@mjtdev/engine": "https://github.com/matthewjosephtaylor/mjtdev-engine#20240908.1728",
+    "@mjtdev/engine": "https://github.com/matthewjosephtaylor/mjtdev-engine#20240908.1745",
     "ai-worker-common": "https://github.com/AIPL-labs/ai-worker-common#20240908.1731",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
