@@ -97,7 +97,12 @@ export const TopLayout = () => {
       <MainContent>
         <Stack direction={"row"}>
           <Stack flexGrow={"1"}>
-            <StoryForm />
+            <StoryForm
+              style={{
+                maxHeight: "80vh",
+                overflow: "auto",
+              }}
+            />
             <Button
               onClick={() => {
                 console.log("New Chat");

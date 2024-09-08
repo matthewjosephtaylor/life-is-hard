@@ -1,10 +1,11 @@
 import { useContext } from "react";
+import { AiplComponentContext } from "../src/provider/AiplComponentContext";
 import { SchemaForm } from "./common/SchemaForm";
 import { StoryTypeInfo } from "./domain/StoryTypeInfo";
-import { AiplComponentContext } from "../src/provider/AiplComponentContext";
-import { Randoms } from "@mjtdev/engine";
 
-export const StoryForm = () => {
+export const StoryForm = ({
+  ...rest
+}: Omit<Parameters<typeof SchemaForm>[0], "schema">) => {
   console.log(StoryTypeInfo.schema);
   const ctx = useContext(AiplComponentContext);
   return (
@@ -16,6 +17,7 @@ export const StoryForm = () => {
       onValueChange={(field, value) => {
         console.log("onValueChange", field, value);
       }}
+      {...rest}
     />
   );
 };

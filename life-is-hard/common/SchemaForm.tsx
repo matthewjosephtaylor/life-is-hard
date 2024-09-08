@@ -71,6 +71,7 @@ export const SchemaForm = ({
             key={key}
             label={property.description || key}
             variant="outlined"
+            multiline
             defaultValue={value || ""}
             onChange={(e) => onValueChange(key, e.target.value)}
             slotProps={{ inputLabel: { shrink: true } }}
