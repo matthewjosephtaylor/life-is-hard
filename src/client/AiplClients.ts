@@ -18,12 +18,14 @@ export const createAiplClient = (
       return result as string;
     },
     log,
-    startChat: (props: Partial<{ 
-      // params: Record<string, string> = {}}
-      
-     } > = {}) => {
-      
-      // return startPublicAccessPoint(findFirstPapId()!, params);
+    startChat: (
+      props: Partial<{
+        params: Record<string, string>;
+        schema: TypeInfo<unknown>["schema"];
+      }> = {}
+    ) => {
+      const { params, schema } = props;
+      return startPublicAccessPoint(findFirstPapId()!, params, schema);
     },
     listAgents: async () => {
       const user = await getBackendUser();

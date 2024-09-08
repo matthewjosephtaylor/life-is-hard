@@ -41,6 +41,7 @@ export const AiplComponentProvider = ({
     const client = createAiplClient({});
     aiplClient = client;
     setState((s) => ({ ...s, client: aiplClient }));
+    client.startChat({ schema: config.typeInfo?.schema });
   }, [config]);
 
   AppEvents.useEventListener(
