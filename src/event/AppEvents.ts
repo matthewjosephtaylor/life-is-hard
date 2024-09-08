@@ -52,6 +52,7 @@ export type AppEventMap = {
   };
   "client:formUpdate": AppMessageMap["client:formUpdate"];
   "client:aiplComponentUpdate": AppMessageMap["client:aiplComponentUpdate"];
+  "client:standbyNotice": AppMessageMap["client:standbyNotice"];
 };
 
 export type AppEventType = keyof AppEventMap;

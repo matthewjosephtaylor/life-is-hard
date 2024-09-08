@@ -11,6 +11,7 @@ import { ToastDisplay } from "../ui/toast/ToastDisplay";
 import { AppEvents } from "../event/AppEvents";
 import { AiplComponentContext } from "../provider/AiplComponentContext";
 import type { AiplComponentContextState } from "./AiplComponentContextState";
+import { StandbyNoticer } from "../ui/notice/StandbyNoticer";
 
 export const AiplChatWindow = ({
   onUpdate = () => {},
@@ -45,6 +46,7 @@ export const AiplChatWindow = ({
       <ToastDisplay />
       <AppLockout />
       <UnobtrusiveErrorToaster />
+      <StandbyNoticer />
     </Theme>
   );
 };
