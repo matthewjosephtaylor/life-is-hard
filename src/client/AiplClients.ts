@@ -1,4 +1,4 @@
-import { isUndefined } from "@mjtdev/engine";
+import { isUndefined, type TypeInfo } from "@mjtdev/engine";
 // import { connectWs } from "./connectWs";
 import { type AppMessageMap } from "ai-worker-common";
 import { getBackendUser } from "../backend/user/getBackendUser";
@@ -9,15 +9,21 @@ import { log } from "./log";
 
 export type AiplClient = ReturnType<typeof createAiplClient>;
 
-export const createAiplClient = (props: Partial<{}> = {}) => {
+export const createAiplClient = (
+  props: Partial<{ schema: TypeInfo<unknown>["schema"] }> = {}
+) => {
   return {
     ask: async (props: AppMessageMap["chat:ask"]) => {
       const result = await AppMessagesState.call("chat:ask", props);
       return result as string;
     },
     log,
-    startChat: (params: Record<string, string> = {}) => {
-      return startPublicAccessPoint(findFirstPapId()!, params);
+    startChat: (props: Partial<{ 
+      // params: Record<string, string> = {}}
+      
+     } > = {}) => {
+      
+      // return startPublicAccessPoint(findFirstPapId()!, params);
     },
     listAgents: async () => {
       const user = await getBackendUser();
