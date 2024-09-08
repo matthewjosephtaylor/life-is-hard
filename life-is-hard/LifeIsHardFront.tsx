@@ -1,11 +1,9 @@
-import { Flex } from "@radix-ui/themes";
+import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { useEffect } from "react";
 import { AiplComponentProvider } from "../src/provider/AiplComponentProvider";
 import { hideLoadingScreen } from "../src/ui/hideLoadingScreen";
-import { TopLayout } from "./TopLayout";
-import { lifeIsHardConfig } from "./lifeIsHardConfigConfig";
-import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { THEME } from "./THEME";
+import { TopLayout } from "./TopLayout";
 import { StoryTypeInfo } from "./domain/StoryTypeInfo";
 
 export const LifeIsHard = () => {

@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { Box, Button, IconButton, Stack } from "@mui/material";
+import { useState } from "react";
 import { AiplChatWindow } from "../src/aipl-components/AiplChatWindow";
-import { AiplInput } from "../src/aipl-components/AiplInput";
-import { AiplComponentContext } from "../src/provider/AiplComponentContext";
-import { TextBox } from "./common/TextBox";
-import { StoryForm } from "./StoryForm";
-import { AiplButton } from "../src/aipl-components/AiplButton";
 import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
+import { DrawerContents } from "./DrawerContents";
+import { useLihState } from "./LihState";
+import { StoryForm } from "./StoryForm";
+import { MAIN_CONTENTS } from "./MAIN_CONTENTS";
 
 // Define the type for the open prop
 interface DrawerContentProps {
@@ -62,6 +61,8 @@ const MainContent = styled(Box)`
 export const TopLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
   const ctx = useAiplComponentContext();
+  const { selectedContent } = useLihState();
+  const mainContent = MAIN_CONTENTS[selectedContent];
 
   // Toggle drawer open/close
   const toggleDrawer = () => {
@@ -75,12 +76,7 @@ export const TopLayout = () => {
         <DrawerContent open={drawerOpen}>
           {drawerOpen && (
             <>
-              <Typography variant="h6">Configuration</Typography>
-              <Typography variant="body1" sx={{ marginTop: "1.5em" }}>
-                Character Name: Player
-              </Typography>
-              <Typography variant="body1">Health: 100</Typography>
-              <Typography variant="body1">Mana: 50</Typography>
+              <DrawerContents />
             </>
           )}
         </DrawerContent>
@@ -97,7 +93,8 @@ export const TopLayout = () => {
       <MainContent>
         <Stack direction={"row"}>
           <Stack flexGrow={"1"}>
-            <StoryForm
+            {mainContent}
+            {/* <StoryForm
               style={{
                 maxHeight: "80vh",
                 overflow: "auto",
@@ -110,7 +107,7 @@ export const TopLayout = () => {
               }}
             >
               New Chat
-            </Button>
+            </Button> */}
           </Stack>
           <Stack>
             <AiplChatWindow

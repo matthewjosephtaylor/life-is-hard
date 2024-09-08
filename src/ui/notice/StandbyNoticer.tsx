@@ -8,6 +8,8 @@ export const StandbyNoticer = () => {
     "client:standbyNotice",
     (evt) => {
       const counter = evt.detail.state === "start" ? +1 : -1;
+      console.log("Event", evt.detail);
+      console.log("Counter", counter);
       setState((s) => ({ count: s.count + counter }));
     },
     [setState]

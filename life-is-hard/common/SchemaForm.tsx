@@ -44,7 +44,6 @@ export const SchemaForm = ({
   const renderField = (key: string, property: any, value: any = "") => {
     switch (property?.type) {
       case "string":
-        console.log(`string: '${key}'`, value);
         if (Array.isArray(property.enum) && property.enum.length > 0) {
           return (
             <FormControl fullWidth variant="outlined" key={key}>
