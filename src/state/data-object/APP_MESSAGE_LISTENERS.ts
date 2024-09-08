@@ -310,4 +310,9 @@ export const APP_MESSAGE_LISTENERS: {
   "pap:auth": [],
   stream: [(message) => AppEvents.dispatchEvent("stream", message.detail)],
   "app:reset": [],
+  "client:standbyNotice": [
+    (mesage) => {
+      AppEvents.dispatchEvent("client:standbyNotice", mesage.detail);
+    },
+  ],
 };
