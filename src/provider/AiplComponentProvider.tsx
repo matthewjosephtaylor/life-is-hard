@@ -38,7 +38,7 @@ export const AiplComponentProvider = ({
     if (isDefined(aiplClient)) {
       return setState((s) => ({ ...s, client: aiplClient }));
     }
-    const client = createAiplClient({ url: config.homeUrl });
+    const client = createAiplClient({});
     aiplClient = client;
     setState((s) => ({ ...s, client: aiplClient }));
   }, [config]);
