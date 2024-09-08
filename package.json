@@ -1,6 +1,6 @@
 {
   "name": "ai-ui",
-  "version": "20240908.1747",
+  "version": "20240908.1821",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -64,10 +64,11 @@
     "storybook": "^8.2.9"
   },
   "dependencies": {
+    "@mjtdev/engine": "https://github.com/matthewjosephtaylor/mjtdev-engine#20240908.1811",
+    "ai-worker-common": "https://github.com/AIPL-labs/ai-worker-common#20240908.1819",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@lunapaint/png-codec": "^0.2.0",
-    "@mjtdev/engine": "https://github.com/matthewjosephtaylor/mjtdev-engine#20240908.1745",
     "@monaco-editor/react": "^4.6.0",
     "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.2",
@@ -76,7 +77,6 @@
     "@radix-ui/themes": "^3.0.2",
     "@ricky0123/vad-web": "^0.0.18",
     "@sinclair/typebox": "^0.33.7",
-    "ai-worker-common": "https://github.com/AIPL-labs/ai-worker-common#20240908.1731",
     "babel-plugin-styled-components": "^2.1.4",
     "character-card-utils": "^2.0.3",
     "easing-utils": "^1.0.0",
