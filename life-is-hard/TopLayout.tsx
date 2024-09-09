@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { Box, Button, IconButton, Stack } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { useState } from "react";
-import { AiplChatWindow } from "../src/aipl-components/AiplChatWindow";
 import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
 import { DrawerContents } from "./DrawerContents";
 import { useLihState } from "./LihState";
-import { StoryForm } from "./StoryForm";
 import { MAIN_CONTENTS } from "./MAIN_CONTENTS";
 
 // Define the type for the open prop
@@ -90,40 +88,7 @@ export const TopLayout = () => {
       </DrawerContainer>
 
       {/* Main content area */}
-      <MainContent>
-        <Stack direction={"row"}>
-          <Stack flexGrow={"1"}>
-            {mainContent}
-            {/* <StoryForm
-              style={{
-                maxHeight: "80vh",
-                overflow: "auto",
-              }}
-            />
-            <Button
-              onClick={() => {
-                console.log("New Chat");
-                ctx?.client?.startChat();
-              }}
-            >
-              New Chat
-            </Button> */}
-          </Stack>
-          <Stack>
-            <AiplChatWindow
-              style={{
-                minWidth: "40ch",
-                maxWidth: "80ch",
-                width: "100%",
-              }}
-              onUpdate={async (ctx) => {
-                console.log("--- updated ---");
-                console.log(ctx.componentState);
-              }}
-            />
-          </Stack>
-        </Stack>
-      </MainContent>
+      <MainContent>{mainContent}</MainContent>
     </Box>
   );
 };

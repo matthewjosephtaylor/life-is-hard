@@ -33,9 +33,7 @@ export const LifeIsHard = () => {
         }}
       />
 
-      <AiplComponentProvider config={{ typeInfo: StoryTypeInfo }}>
-        <TopLayout />
-      </AiplComponentProvider>
+      <TopLayout />
     </ThemeProvider>
   );
 };

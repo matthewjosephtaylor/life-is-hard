@@ -1,8 +1,8 @@
-import { Stack } from "@mui/material";
 import type { ReactNode } from "react";
-import { StoryForm } from "./StoryForm";
+import { CreateStoryMain } from "./CreateStoryMain";
+import { CreateTypeMain } from "./CreateTypeMain";
 
 export const MAIN_CONTENTS = {
-  createStory: <StoryForm />,
-  createType: <Stack>createType</Stack>,
+  createStory: <CreateStoryMain />,
+  createType: <CreateTypeMain />,
 } as const satisfies Record<string, ReactNode>;
