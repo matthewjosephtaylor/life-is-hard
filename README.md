@@ -53,6 +53,7 @@ For more information on how to use this project, please refer to the [project do
 
 - [App Front](./project-docs/app-front.md)
 - [Intro to PAPs](./project-docs/intro-to-paps.md)
+- [Git 'ours' strategy for bun.lockb](./project-docs/git-ours-strategy.md)
 
 
 ## Contributing
