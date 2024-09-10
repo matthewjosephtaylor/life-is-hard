@@ -21,7 +21,6 @@ export const DrawerContents = () => {
       ] as const;
     })
   );
-  console.log("actions", actions);
   return (
     <Stack>
       <ButtonGroup
@@ -36,6 +35,8 @@ export const DrawerContents = () => {
           createType: () => {
             updateLihState((s) => {
               s.selectedContent = "createType";
+              s.currentSchema = undefined;
+              s.currentObjectId = undefined;
             });
           },
           ...actions,

@@ -6,8 +6,8 @@ export const GAME_PACK_DB: Idb<GamePack> = {
   storeName: "gamepack",
 };
 
-export const storeGamePack = (key: string, gamePack: GamePack) => {
-  return Idbs.put(GAME_PACK_DB, key, gamePack);
+export const storeGamePack = (gamePack: GamePack) => {
+  return Idbs.put(GAME_PACK_DB, gamePack.id, gamePack);
 };
 
 export const loadGamePack = (key: string) => {

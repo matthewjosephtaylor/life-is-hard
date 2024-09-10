@@ -54,6 +54,7 @@ export const CreateTypeMain = () => {
       <Stack gap={"1em"} direction={"row"}>
         <Stack flexGrow={1}>
           <StartNewAiplChatButton />
+          <SaveTypeButton />
           Create {currentSchema?.$id}
           <TextBox
             sx={{ minwidth: "40ch" }}
@@ -62,7 +63,6 @@ export const CreateTypeMain = () => {
             aiplName="typeDefinition"
           />
           <DynamicTypeForm aiplName={"typeDefinition"} />
-          <SaveTypeButton />
         </Stack>
         <Stack sx={{ minWidth: "40ch" }}>
           <AiplChatWindow

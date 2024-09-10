@@ -15,13 +15,11 @@ export const CurrentAiplSchemaForm = ({
   });
   useEffect(() => {
     const schema = ctx?.typeInfo?.schema;
-    console.log(`CurrentAiplSchemaForm: schemaId ${schema?.$id}`, schema);
     setState({ schema, data: ctx?.componentState });
   }, [ctx, ctx?.typeInfo?.schema, ctx?.componentState]);
   if (!state.schema) {
     return <></>;
   }
-  console.log(`WTF: ${state.schema.$id}`);
   return (
     <SchemaForm
       key={`${crypto.randomUUID()}`}

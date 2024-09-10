@@ -14,8 +14,11 @@ export const SaveObjectButton = ({
   return (
     <Button
       onClick={() => {
+        
         const schema = ctx?.typeInfo?.schema;
+        console.log("schema", schema);
         if (!schema) {
+          console.error("No schema found in context", ctx);
           return;
         }
         updateLihState((s) => {
@@ -42,7 +45,10 @@ export const SaveObjectButton = ({
             object: ctx.componentState,
           });
         });
-        storeGamePack("default", getLihState().gamePack);
+        const gamePack = getLihState().gamePack;
+
+        console.log("gamePack", gamePack);
+        storeGamePack(gamePack);
       }}
       {...rest}
     >

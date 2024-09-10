@@ -25,17 +25,9 @@ export const CreateObjectMain = () => {
     const typeInfo = safe(() => TypeBoxes.schemaToTypeInfo(currentSchema!), {
       quiet: true,
     });
-    console.log(
-      `CreateObjectMain: typeInfo schema id: ${typeInfo?.schema.$id}`,
-      typeInfo
-    );
     const defaultComponentState = gamePack.entities.find(
       (e) => e.id === currentObjectId
     )?.object as {};
-    console.log(
-      "CreateObjectMain: default component state",
-      defaultComponentState
-    );
     setState((s) => ({ ...s, typeInfo: typeInfo, defaultComponentState }));
   }, [currentSchema, currentObjectId, gamePack]);
 

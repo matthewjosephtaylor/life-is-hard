@@ -59,7 +59,6 @@ const MainContent = styled(Box)`
 export const TopLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
   const { selectedContent, gamePack } = useLihState();
-  console.log("selectedContent", selectedContent);
   const schemaMainContents = gamePackSchemasToMainContent(gamePack);
   const mainContent =
     MAIN_CONTENTS[selectedContent] ?? schemaMainContents[selectedContent];
