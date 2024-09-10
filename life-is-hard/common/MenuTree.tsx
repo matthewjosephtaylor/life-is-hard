@@ -1,7 +1,4 @@
-import { Button } from "@mui/material";
-import type { TreeItemProps } from "@mui/x-tree-view";
 import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
-import type { DataObject } from "ai-worker-common";
 
 interface MenuTreeProps<T> {
   items: T[]; // Now explicitly defining `items` as part of MenuTreeProps

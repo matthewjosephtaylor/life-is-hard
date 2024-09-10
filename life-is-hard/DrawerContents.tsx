@@ -1,4 +1,4 @@
-import { Divider, Stack } from "@mui/material";
+import { Divider, Stack, Typography } from "@mui/material";
 import { ButtonGroup } from "./common/ButtonGroup";
 import { EntitiesMenu } from "./entity/EntitiesMenu";
 import { SchemasMenu } from "./entity/SchemasMenu";
@@ -23,6 +23,7 @@ export const DrawerContents = () => {
   );
   return (
     <Stack>
+      <Divider />
       <ButtonGroup
         actions={{
           loadGamePack: async () => {
@@ -32,20 +33,33 @@ export const DrawerContents = () => {
               s.selectedContent = "createType";
             });
           },
-          createType: () => {
+          defineTemplate: () => {
             updateLihState((s) => {
               s.selectedContent = "createType";
               s.currentSchema = undefined;
               s.currentObjectId = undefined;
             });
           },
+        }}
+      />
+      <Divider />
+      <Typography variant="caption">Create Entities</Typography>
+      <ButtonGroup
+        actions={{
           ...actions,
         }}
       />
+      <Divider />
+      <Typography variant="caption">Entity Definitions</Typography>
       <SchemasMenu />
       <Divider />
 
+      <Typography variant="caption">Entities By Category</Typography>
+      <EntitiesMenu getType={(entity) => entity.category ?? "lore"} />
+      <Divider />
+      <Typography variant="caption">Entities By Template</Typography>
       <EntitiesMenu />
+      <Divider />
     </Stack>
   );
 };

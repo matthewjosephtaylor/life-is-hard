@@ -44,6 +44,7 @@ export const ButtonGroup = ({
         {...(buttonProps[key] ?? {})}
       >
         <Typography
+          variant="caption"
           style={{
             overflow: "hidden",
             textOverflow: "ellipsis",

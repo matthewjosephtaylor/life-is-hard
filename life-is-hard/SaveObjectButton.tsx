@@ -2,11 +2,19 @@ import { Button, type ButtonProps } from "@mui/material";
 import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
 import { getLihState, updateLihState } from "./state/LihState";
 import { storeGamePack } from "./state/GAME_PACK_DB";
+import type { GameEntity } from "./state/GameEntity";
+import type { GameImage } from "./state/GameImage";
 
 export const SaveObjectButton = ({
   id,
+  image,
+  category,
   ...rest
-}: { id: string } & ButtonProps) => {
+}: {
+  id: string;
+  category: GameEntity["category"];
+  image?: GameImage;
+} & ButtonProps) => {
   const ctx = useAiplComponentContext();
   if (!ctx?.typeInfo?.schema) {
     return <></>;
@@ -14,7 +22,6 @@ export const SaveObjectButton = ({
   return (
     <Button
       onClick={() => {
-        
         const schema = ctx?.typeInfo?.schema;
         console.log("schema", schema);
         if (!schema) {
@@ -33,16 +40,20 @@ export const SaveObjectButton = ({
             );
             s.gamePack.entities[existingEntityIdx] = {
               id,
+              category: category,
               schemaName: schema.$id,
               object: ctx.componentState,
+              image,
             };
             return;
           }
 
           s.gamePack.entities.push({
             id: `${schema.$id}-${Date.now()}-${crypto.randomUUID()}`,
+            category: category,
             schemaName: schema.$id,
             object: ctx.componentState,
+            image,
           });
         });
         const gamePack = getLihState().gamePack;

@@ -2,6 +2,7 @@ import type { BoxProps } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
 import { SchemaForm } from "./common/SchemaForm";
+import JsonDisplay from "./common/JsonDisplay";
 
 export const CurrentAiplSchemaForm = ({
   ...rest
@@ -23,15 +24,18 @@ export const CurrentAiplSchemaForm = ({
     return <></>;
   }
   return (
-    <SchemaForm
-      key={`${crypto.randomUUID()}`}
-      sx={{ margin: "0.5em" }}
-      schema={state.schema}
-      data={state.data}
-      onValueChange={(field, value) => {
-        console.log("onValueChange", field, value);
-      }}
-      {...rest}
-    />
+    <>
+      {/* <SchemaForm
+        key={`${crypto.randomUUID()}`}
+        sx={{ margin: "0.5em" }}
+        schema={state.schema}
+        data={state.data}
+        onValueChange={(field, value) => {
+          console.log("onValueChange", field, value);
+        }}
+        {...rest}
+      /> */}
+      <JsonDisplay data={state.data} />
+    </>
   );
 };

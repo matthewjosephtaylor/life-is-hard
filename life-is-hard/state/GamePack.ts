@@ -1,4 +1,5 @@
 import type { TypeInfo } from "@mjtdev/engine";
+import type { GameEntity } from "./GameEntity";
 
 export type GamePack = {
   id: string;
@@ -7,8 +8,3 @@ export type GamePack = {
   schemas: TypeInfo["schema"][];
 };
 
-export type GameEntity<T = unknown> = {
-  id: string;
-  schemaName?: string;
-  object?: T;
-};
