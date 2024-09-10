@@ -1,10 +1,9 @@
-import { isDefined } from "@mjtdev/engine";
 import { Divider, Stack } from "@mui/material";
 import { ButtonGroup } from "./common/ButtonGroup";
-import { loadGamePack } from "./state/GAME_PACK_DB";
-import { updateLihState, useLihState } from "./state/LihState";
 import { EntitiesMenu } from "./entity/EntitiesMenu";
 import { SchemasMenu } from "./entity/SchemasMenu";
+import { loadGamePack } from "./state/GAME_PACK_DB";
+import { updateLihState, useLihState } from "./state/LihState";
 
 export const DrawerContents = () => {
   const { gamePack } = useLihState();
@@ -16,6 +15,7 @@ export const DrawerContents = () => {
           updateLihState((s) => {
             s.selectedContent = `create-${schema.$id}`;
             s.currentSchema = schema;
+            s.currentObjectId = `${schema.$id}-${Date.now()}-${crypto.randomUUID()}`;
           });
         },
       ] as const;

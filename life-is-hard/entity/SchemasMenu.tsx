@@ -1,12 +1,5 @@
-import type { TypeInfo } from "@mjtdev/engine";
-import { MenuTree, type GroupedItem } from "../common/MenuTree";
+import { MenuTree } from "../common/MenuTree";
 import { updateLihState, useLihState } from "../state/LihState";
-import { Button } from "@mui/material";
-import {
-  TreeItem,
-  type TreeItem2Props,
-  type TreeItemProps,
-} from "@mui/x-tree-view";
 
 export const SchemasMenu = () => {
   const { gamePack } = useLihState();
@@ -22,32 +15,19 @@ export const SchemasMenu = () => {
       getItemLabel={function (item): string {
         // return (item.object as { name: string })?.name ?? item.id;
         console.log("item", item);
-        return item.$id ?? "Schema";
+        return item.$id ?? "Types";
       }}
       getType={function (item): string {
-        return "schema";
+        return "types";
       }}
       onItemClick={(evt, itemId) => {
-        console.log("Clicked on item", itemId);
+        console.log("Clicked on item schema item", itemId);
         updateLihState((s) => {
           s.currentSchema = schemas.find((schema) => schema.$id === itemId);
+          console.log("s.currentSchema", s.currentSchema);
           s.selectedContent = "createType";
         });
       }}
-      // slots={{
-      //   item: ({
-      //     item,
-      //   }:
-      //   ) =>
-      //     renderLabelWithActions(item), // Custom render function for each item
-      // }}
-      // slots={{
-      //   item: ({ itemId, label, id }: TreeItemProps) => {
-      //     // console.log("props", props);
-      //     // props.itemId
-      //     return <Button>Click me</Button>;
-      //   },
-      // }}
     />
   );
 };

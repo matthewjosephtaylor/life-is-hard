@@ -11,6 +11,7 @@ import { useLihState } from "./state/LihState";
 
 export const CreateTypeMain = () => {
   const [state, setState] = useState({
+    defaultComponentState: { typeDefinition: "" },
     typeInfo: TypeBoxes.createTypeInfo((Type) => {
       return Type.Object(
         {
@@ -28,13 +29,28 @@ export const CreateTypeMain = () => {
     if (!currentSchema) {
       return;
     }
-    const typeDef = TypeBoxes.schemaToTypeInfo(currentSchema);
-    if (!typeDef) {
+    const typeInfo = TypeBoxes.schemaToTypeInfo(currentSchema);
+    console.log("CreateTypeMain: typeInfo schema id:", typeInfo?.schema.$id);
+    if (!typeInfo) {
       return;
     }
+    setState((s) => {
+      return {
+        ...s,
+        defaultComponentState: { typeDefinition: typeInfo.typeDeclaration },
+      };
+    });
   }, [currentSchema]);
+  console.log(
+    `CreateTypeMain: default component state`,
+    state.defaultComponentState
+  );
   return (
-    <AiplComponentProvider config={{ typeInfo: state.typeInfo }}>
+    <AiplComponentProvider
+      config={{ typeInfo: state.typeInfo }}
+      defaultComponentState={state.defaultComponentState}
+      key={crypto.randomUUID()}
+    >
       <Stack gap={"1em"} direction={"row"}>
         <Stack flexGrow={1}>
           <StartNewAiplChatButton />

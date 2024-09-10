@@ -1,22 +1,26 @@
-import { safe, TypeBoxes, type TypeInfo } from "@mjtdev/engine";
+import {
+  isUndefined,
+  Keys,
+  safe,
+  TypeBoxes,
+  type TypeInfo,
+} from "@mjtdev/engine";
 import { Stack } from "@mui/material";
+import { useEffect, useState } from "react";
 import { AiplChatWindow } from "../src/aipl-components/AiplChatWindow";
 import { AiplComponentProvider } from "../src/provider/AiplComponentProvider";
-import { StartNewAiplChatButton } from "./StartNewAiplChatButton";
-import { SchemaForm } from "./common/SchemaForm";
-import { useLihState } from "./state/LihState";
 import { CurrentAiplSchemaForm } from "./CurrentAiplSchemaForm";
-import { CreateObjectButton } from "./CreateObjectButton";
-import { useEffect, useState } from "react";
+import { SaveObjectButton } from "./SaveObjectButton";
+import { StartNewAiplChatButton } from "./StartNewAiplChatButton";
+import { useLihState } from "./state/LihState";
 
 export const CreateObjectMain = () => {
-  const {
-    currentSchema,
-    currentObjectId = `${currentSchema?.$id ?? "entity"}-${Date.now()}-${crypto.randomUUID()}`,
-  } = useLihState();
+  const { currentSchema } = useLihState();
   const [state, setState] = useState({
     typeInfo: undefined as undefined | TypeInfo,
+    defaultComponentState: undefined as undefined | {},
   });
+  const { gamePack, currentObjectId } = useLihState();
   useEffect(() => {
     const typeInfo = safe(() => TypeBoxes.schemaToTypeInfo(currentSchema!), {
       quiet: true,
@@ -25,23 +29,33 @@ export const CreateObjectMain = () => {
       `CreateObjectMain: typeInfo schema id: ${typeInfo?.schema.$id}`,
       typeInfo
     );
-    setState({ typeInfo: typeInfo });
-  }, [currentSchema]);
+    const defaultComponentState = gamePack.entities.find(
+      (e) => e.id === currentObjectId
+    )?.object as {};
+    console.log(
+      "CreateObjectMain: default component state",
+      defaultComponentState
+    );
+    setState((s) => ({ ...s, typeInfo: typeInfo, defaultComponentState }));
+  }, [currentSchema, currentObjectId, gamePack]);
 
   if (!state.typeInfo) {
     return <Stack>Failed to create type info</Stack>;
   }
   return (
     <AiplComponentProvider
-      key={state.typeInfo.schema.$id}
+      key={Keys.stableStringify([state.typeInfo, state.defaultComponentState])}
       config={{ typeInfo: state.typeInfo }}
+      defaultComponentState={state.defaultComponentState}
     >
       <Stack gap={"1em"} direction={"row"}>
         <Stack flexGrow={1}>
           <Stack>
             <StartNewAiplChatButton />
-            <CreateObjectButton />
-            {currentSchema?.$id}
+            <SaveObjectButton
+              disabled={isUndefined(currentObjectId)}
+              id={currentObjectId ?? ""}
+            />
             {currentObjectId}
 
             <CurrentAiplSchemaForm
