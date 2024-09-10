@@ -1,5 +1,5 @@
 import { TypeBoxes } from "@mjtdev/engine";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { AiplChatWindow } from "../src/aipl-components/AiplChatWindow";
 import { AiplComponentProvider } from "../src/provider/AiplComponentProvider";
@@ -17,10 +17,10 @@ export const CreateTypeMain = () => {
         {
           typeDefinition: Type.String({
             description:
-              "The TypeScript type definition the user wants to create. DO NOT respond with the Response type definition, don't get confused.",
+              "The TypeScript type definition the user wants to create. DO NOT reference the InternalResponse type definition.",
           }),
         },
-        { $id: "Response" }
+        { $id: "InternalResponse" }
       );
     }),
   });
@@ -30,13 +30,23 @@ export const CreateTypeMain = () => {
       return;
     }
     const typeInfo = TypeBoxes.schemaToTypeInfo(currentSchema);
-    console.log("CreateTypeMain: typeInfo schema id:", typeInfo?.schema.$id);
     if (!typeInfo) {
       return;
     }
     setState((s) => {
       return {
         ...s,
+        typeInfo: TypeBoxes.createTypeInfo((Type) => {
+          return Type.Object(
+            {
+              typeDefinition: Type.String({
+                description:
+                  "The TypeScript type definition the user wants to create. DO NOT reference the InternalResponse type definition.",
+              }),
+            },
+            { $id: "InternalResponse" }
+          );
+        }),
         defaultComponentState: { typeDefinition: typeInfo.typeDeclaration },
       };
     });
@@ -49,18 +59,24 @@ export const CreateTypeMain = () => {
     <AiplComponentProvider
       config={{ typeInfo: state.typeInfo }}
       defaultComponentState={state.defaultComponentState}
-      key={crypto.randomUUID()}
+      // key={crypto.randomUUID()}
     >
       <Stack gap={"1em"} direction={"row"}>
         <Stack flexGrow={1}>
           <StartNewAiplChatButton />
           <SaveTypeButton />
+          <Typography variant="h6">
+            {currentSchema?.$id
+              ? `Update ${currentSchema.$id} Type`
+              : "Create New Type"}
+          </Typography>
           Create {currentSchema?.$id}
           <TextBox
             sx={{ minwidth: "40ch" }}
             multiline
             rows={10}
             aiplName="typeDefinition"
+            key={state.typeInfo.schema.$id ?? ""}
           />
           <DynamicTypeForm aiplName={"typeDefinition"} />
         </Stack>

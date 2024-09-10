@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { AiplComponentContextState } from "../../src/aipl-components/AiplComponentContextState";
 import { useAiplComponentContext } from "../../src/aipl-components/useAiplComponentContext";
 
-export const useAiplValue = (aiplName: string, defaultValue = undefined) => {
+export const useAiplValue = (aiplName: string, defaultValue?: string) => {
   const context = useAiplComponentContext();
   const [state, setState] = useState<
     AiplComponentContextState["componentState"][string] | undefined

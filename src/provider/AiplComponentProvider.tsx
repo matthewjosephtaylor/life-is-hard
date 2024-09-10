@@ -43,7 +43,6 @@ export const AiplComponentProvider = ({
       AppEvents.dispatchEvent("client:aiplComponentUpdate", {
         data: componentState,
       });
-      // setState((s) => ({ ...s, componentState }));
     },
   });
 
@@ -77,6 +76,13 @@ export const AiplComponentProvider = ({
     },
     []
   );
+  useEffect(() => {
+    setState((s) => ({
+      ...s,
+      ...memoizedConfig,
+      componentState: defaultComponentState,
+    }));
+  }, [memoizedConfig, defaultComponentState]);
 
   // Provide the state to the context
   return (
