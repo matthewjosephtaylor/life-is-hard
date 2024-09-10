@@ -15,8 +15,10 @@ let aiplClient: AiplClient | undefined = undefined;
 export const AiplComponentProvider = ({
   config,
   children,
+  defaultComponentState = {},
 }: {
   config: Partial<AiplComponentContextConfig>;
+  defaultComponentState?: Record<string, string | string[]>;
   children: ReactNode;
 }) => {
   const { hashParams } = useAppModesAndParams();
@@ -28,7 +30,7 @@ export const AiplComponentProvider = ({
     ...config,
     homeUrl,
     papId: accessPointId,
-    componentState: {},
+    componentState: defaultComponentState,
     updateComponentState: (componentState) => {
       setState((s) => ({ ...s, componentState }));
     },
