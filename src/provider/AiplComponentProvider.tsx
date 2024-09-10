@@ -1,13 +1,11 @@
-import { isDefined, isUndefined } from "@mjtdev/engine";
-import { useEffect, useState, useMemo, type ReactNode } from "react";
+import { isUndefined, Keys } from "@mjtdev/engine";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   type AiplComponentContextConfig,
   type AiplComponentContextState,
 } from "../aipl-components/AiplComponentContextState.ts";
-import { createAiplClient, type AiplClient } from "../client/AiplClients.ts";
+import { createAiplClient } from "../client/AiplClients.ts";
 import { AppEvents } from "../event/AppEvents.ts";
-import { useAppState } from "../state/app/AppState.ts";
-import { useAppModesAndParams } from "../state/location/useAppModesAndParams.ts";
 import { AiplComponentContext } from "./AiplComponentContext.tsx";
 
 export const AiplComponentProvider = ({
@@ -19,25 +17,10 @@ export const AiplComponentProvider = ({
   defaultComponentState?: Record<string, string | string[]>;
   children: ReactNode;
 }) => {
-  const { hashParams } = useAppModesAndParams();
-  const { aiBaseUrl } = useAppState();
-
-  const accessPointId = config.papId ?? hashParams.papId;
-  const homeUrl = config.homeUrl ?? aiBaseUrl;
-
-  // Memoize config to avoid unnecessary re-renders
-  const memoizedConfig = useMemo(
-    () => ({
-      ...config,
-      homeUrl,
-      papId: accessPointId,
-    }),
-    [config, homeUrl, accessPointId]
-  );
-
+  console.log("AiplComponentProvider", config);
   // State management for context state and client
   const [state, setState] = useState<AiplComponentContextState>({
-    ...memoizedConfig,
+    ...config,
     componentState: defaultComponentState,
     updateComponentState: (componentState) => {
       AppEvents.dispatchEvent("client:aiplComponentUpdate", {
@@ -45,21 +28,6 @@ export const AiplComponentProvider = ({
       });
     },
   });
-
-  // State for AiplClient
-  const [client, setClient] = useState<AiplClient | undefined>(undefined);
-
-  // Effect to create or reuse AiplClient
-  useEffect(() => {
-    if (isDefined(client)) {
-      setState((s) => ({ ...s, client }));
-      return;
-    }
-    const newClient = createAiplClient({});
-    setClient(newClient);
-    setState((s) => ({ ...s, client: newClient }));
-    newClient.startChat({ schema: memoizedConfig.typeInfo?.schema });
-  }, [client, memoizedConfig]);
 
   // Event listener for client updates
   AppEvents.useEventListener(
@@ -77,14 +45,15 @@ export const AiplComponentProvider = ({
     []
   );
   useEffect(() => {
+    const client = createAiplClient({ schema: config.typeInfo?.schema });
     setState((s) => ({
       ...s,
-      ...memoizedConfig,
+      ...config,
+      client,
       componentState: defaultComponentState,
     }));
-  }, [memoizedConfig, defaultComponentState]);
+  }, [Keys.stableStringify([config, defaultComponentState])]);
 
-  // Provide the state to the context
   return (
     <AiplComponentContext.Provider value={state}>
       {children}
