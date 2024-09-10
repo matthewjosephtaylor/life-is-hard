@@ -6,7 +6,7 @@ import {
   type TypeInfo,
 } from "@mjtdev/engine";
 import { Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AiplChatWindow } from "../src/aipl-components/AiplChatWindow";
 import { AiplComponentProvider } from "../src/provider/AiplComponentProvider";
 import { CurrentAiplSchemaForm } from "./CurrentAiplSchemaForm";
@@ -15,29 +15,39 @@ import { StartNewAiplChatButton } from "./StartNewAiplChatButton";
 import { useLihState } from "./state/LihState";
 
 export const CreateObjectMain = () => {
-  const { currentSchema } = useLihState();
+  const { currentSchema, currentObjectId, gamePack } = useLihState();
   const [state, setState] = useState({
     typeInfo: undefined as undefined | TypeInfo,
     defaultComponentState: undefined as undefined | {},
+    objectId: undefined as undefined | string,
   });
-  const { gamePack, currentObjectId } = useLihState();
   useEffect(() => {
+    console.log("!!!!!!!!!!!!!!!!!!currentSchema CHANGED!!!!!!", currentSchema);
     const typeInfo = safe(() => TypeBoxes.schemaToTypeInfo(currentSchema!), {
       quiet: true,
     });
     const defaultComponentState = gamePack.entities.find(
       (e) => e.id === currentObjectId
     )?.object as {};
-    setState((s) => ({ ...s, typeInfo: typeInfo, defaultComponentState }));
-  }, [currentSchema, currentObjectId, gamePack]);
-
+    setState((s) => ({
+      ...s,
+      typeInfo: typeInfo,
+      defaultComponentState,
+      objectId: currentObjectId,
+    }));
+  }, [currentSchema, currentObjectId]);
+  const config = useMemo(
+    () => ({ typeInfo: state.typeInfo }),
+    [state.typeInfo]
+  );
   if (!state.typeInfo) {
     return <Stack>Failed to create type info</Stack>;
   }
+  console.log("state.defaultComponentState", state.defaultComponentState);
   return (
     <AiplComponentProvider
-      key={Keys.stableStringify([state.typeInfo, state.defaultComponentState])}
-      config={{ typeInfo: state.typeInfo }}
+      // config={{ typeInfo: state.typeInfo }}
+      config={config}
       defaultComponentState={state.defaultComponentState}
     >
       <Stack gap={"1em"} direction={"row"}>
@@ -45,8 +55,8 @@ export const CreateObjectMain = () => {
           <Stack>
             <StartNewAiplChatButton />
             <SaveObjectButton
-              disabled={isUndefined(currentObjectId)}
-              id={currentObjectId ?? ""}
+              disabled={isUndefined(state.objectId)}
+              id={state.objectId ?? ""}
             />
             {currentObjectId}
 

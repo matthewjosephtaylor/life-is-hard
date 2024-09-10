@@ -15,8 +15,10 @@ export const CurrentAiplSchemaForm = ({
   });
   useEffect(() => {
     const schema = ctx?.typeInfo?.schema;
-    setState({ schema, data: ctx?.componentState });
-  }, [ctx, ctx?.typeInfo?.schema, ctx?.componentState]);
+    const data = ctx?.componentState;
+    setState({ schema, data });
+    // }, [ctx?.typeInfo?.schema, ctx?.componentState]);
+  }, [ctx?.componentState]);
   if (!state.schema) {
     return <></>;
   }

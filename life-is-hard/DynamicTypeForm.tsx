@@ -23,6 +23,7 @@ export const DynamicTypeForm = ({
 
   useEffect(() => {
     if (isUndefined(value)) {
+      setState({ schema: undefined });
       return;
     }
     const schema = safe(
@@ -38,7 +39,7 @@ export const DynamicTypeForm = ({
 
   return (
     <SchemaForm
-      key={`${crypto.randomUUID()}`}
+      // key={`${crypto.randomUUID()}`}
       sx={{ margin: "0.5em" }}
       schema={state.schema}
       data={{}}

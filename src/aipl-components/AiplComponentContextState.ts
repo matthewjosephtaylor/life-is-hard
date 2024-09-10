@@ -2,8 +2,6 @@ import type { TypeInfo } from "@mjtdev/engine";
 import type { AiplClient } from "../client/AiplClients";
 
 export type AiplComponentContextConfig<T = unknown> = {
-  papId?: string;
-  homeUrl?: string;
   typeInfo?: TypeInfo<T>;
 };
 

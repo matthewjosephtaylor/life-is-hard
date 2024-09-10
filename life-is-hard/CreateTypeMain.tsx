@@ -27,10 +27,44 @@ export const CreateTypeMain = () => {
   const { currentSchema } = useLihState();
   useEffect(() => {
     if (!currentSchema) {
+      setState((s) => {
+        return {
+          ...s,
+          typeInfo: TypeBoxes.createTypeInfo((Type) => {
+            return Type.Object(
+              {
+                typeDefinition: Type.String({
+                  description:
+                    "The TypeScript type definition the user wants to create. DO NOT reference the InternalResponse type definition.",
+                }),
+              },
+              { $id: "InternalResponse" }
+            );
+          }),
+          defaultComponentState: { typeDefinition: "" },
+        };
+      });
       return;
     }
     const typeInfo = TypeBoxes.schemaToTypeInfo(currentSchema);
     if (!typeInfo) {
+      setState((s) => {
+        return {
+          ...s,
+          typeInfo: TypeBoxes.createTypeInfo((Type) => {
+            return Type.Object(
+              {
+                typeDefinition: Type.String({
+                  description:
+                    "The TypeScript type definition the user wants to create. DO NOT reference the InternalResponse type definition.",
+                }),
+              },
+              { $id: "InternalResponse" }
+            );
+          }),
+          defaultComponentState: { typeDefinition: "" },
+        };
+      });
       return;
     }
     setState((s) => {
