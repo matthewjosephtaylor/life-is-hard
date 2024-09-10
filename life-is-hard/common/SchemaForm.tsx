@@ -12,7 +12,9 @@ import {
   BoxProps,
 } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
-import type { TSchema } from "@sinclair/typebox";
+import type { TypeInfo } from "@mjtdev/engine";
+
+export type SchemaFormProps = Parameters<typeof SchemaForm>[0];
 
 export const SchemaForm = ({
   schema,
@@ -20,7 +22,7 @@ export const SchemaForm = ({
   onValueChange = () => {},
   ...rest
 }: BoxProps & {
-  schema: TSchema;
+  schema: TypeInfo["schema"];
   data?: any;
   onValueChange?: (field: string, value: any) => void;
 }) => {

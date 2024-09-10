@@ -1,25 +1,13 @@
-import { TypeBoxes, type TypeInfo } from "@mjtdev/engine";
-import { Button, Stack } from "@mui/material";
-import { useState } from "react";
+import { TypeBoxes } from "@mjtdev/engine";
+import { Stack } from "@mui/material";
+import { useEffect, useState } from "react";
 import { AiplChatWindow } from "../src/aipl-components/AiplChatWindow";
-import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
 import { AiplComponentProvider } from "../src/provider/AiplComponentProvider";
 import { TextBox } from "./common/TextBox";
-import { AiplComponentContext } from "../src/provider/AiplComponentContext";
-
-export const StartNewAiplChatButton = () => {
-  const ctx = useAiplComponentContext();
-  return (
-    <Button
-      onClick={() => {
-        console.log("start chat", ctx?.client);
-        ctx?.client?.startChat();
-      }}
-    >
-      Start New Chat
-    </Button>
-  );
-};
+import { DynamicTypeForm } from "./DynamicTypeForm";
+import { SaveTypeButton } from "./SaveTypeButton";
+import { StartNewAiplChatButton } from "./StartNewAiplChatButton";
+import { useLihState } from "./state/LihState";
 
 export const CreateTypeMain = () => {
   const [state, setState] = useState({
@@ -35,19 +23,30 @@ export const CreateTypeMain = () => {
       );
     }),
   });
+  const { currentSchema } = useLihState();
+  useEffect(() => {
+    if (!currentSchema) {
+      return;
+    }
+    const typeDef = TypeBoxes.schemaToTypeInfo(currentSchema);
+    if (!typeDef) {
+      return;
+    }
+  }, [currentSchema]);
   return (
     <AiplComponentProvider config={{ typeInfo: state.typeInfo }}>
       <Stack gap={"1em"} direction={"row"}>
         <Stack flexGrow={1}>
-          {/* <StoryForm /> */}
-
+          <StartNewAiplChatButton />
+          Create {currentSchema?.$id}
           <TextBox
             sx={{ minwidth: "40ch" }}
             multiline
             rows={10}
             aiplName="typeDefinition"
           />
-          <StartNewAiplChatButton />
+          <DynamicTypeForm aiplName={"typeDefinition"} />
+          <SaveTypeButton />
         </Stack>
         <Stack sx={{ minWidth: "40ch" }}>
           <AiplChatWindow
@@ -66,14 +65,4 @@ export const CreateTypeMain = () => {
       </Stack>
     </AiplComponentProvider>
   );
-};
-
-export const DynamicTypeForm = ({
-  schema,
-}: {
-  schema: TypeInfo<unknown>["schema"];
-}) => {
-  const typeInfo = TypeBoxes.schemaToTypeInfo(schema);
-
-  return <AiplComponentProvider config={{ typeInfo }}> </AiplComponentProvider>;
 };

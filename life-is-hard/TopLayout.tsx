@@ -2,10 +2,10 @@ import styled from "@emotion/styled";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { Box, IconButton } from "@mui/material";
 import { useState } from "react";
-import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
 import { DrawerContents } from "./DrawerContents";
-import { useLihState } from "./LihState";
+import { gamePackSchemasToMainContent } from "./gamePackSchemasToMainContent";
 import { MAIN_CONTENTS } from "./MAIN_CONTENTS";
+import { useLihState } from "./state/LihState";
 
 // Define the type for the open prop
 interface DrawerContentProps {
@@ -58,9 +58,11 @@ const MainContent = styled(Box)`
 
 export const TopLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const ctx = useAiplComponentContext();
-  const { selectedContent } = useLihState();
-  const mainContent = MAIN_CONTENTS[selectedContent];
+  const { selectedContent, gamePack } = useLihState();
+  console.log("selectedContent", selectedContent);
+  const schemaMainContents = gamePackSchemasToMainContent(gamePack);
+  const mainContent =
+    MAIN_CONTENTS[selectedContent] ?? schemaMainContents[selectedContent];
 
   // Toggle drawer open/close
   const toggleDrawer = () => {

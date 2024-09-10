@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
-import { CreateStoryMain } from "./CreateStoryMain";
 import { CreateTypeMain } from "./CreateTypeMain";
 
-export const MAIN_CONTENTS = {
-  createStory: <CreateStoryMain />,
+export const MAIN_CONTENTS: Record<string, ReactNode> = {
   createType: <CreateTypeMain />,
-} as const satisfies Record<string, ReactNode>;
+};

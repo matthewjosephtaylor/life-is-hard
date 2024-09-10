@@ -1,13 +1,13 @@
-import { useContext } from "react";
-import { AiplComponentContext } from "../src/provider/AiplComponentContext";
+import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
 import { SchemaForm } from "./common/SchemaForm";
 import { StoryTypeInfo } from "./domain/StoryTypeInfo";
 
 export const StoryForm = ({
   ...rest
 }: Omit<Parameters<typeof SchemaForm>[0], "schema">) => {
-  console.log(StoryTypeInfo.schema);
-  const ctx = useContext(AiplComponentContext);
+  const ctx = useAiplComponentContext();
+  console.log("ctx", ctx);
+  console.log("ctx?.componentState", ctx?.componentState);
   return (
     <SchemaForm
       key={`${crypto.randomUUID()}`}
