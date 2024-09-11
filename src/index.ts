@@ -63,11 +63,10 @@ import { findFirstPapId } from "./ui/overlay/findFirstPapId";
       return;
     }
 
-    const chatId = await startPublicAccessPoint(
-      papId,
-      // location.pathname.replaceAll("/", ""),
-      locationState.params
-    );
+    const chatId = await startPublicAccessPoint({
+      accessPointId: papId,
+      params: locationState.params,
+    });
   }
 
   if (

@@ -2,11 +2,17 @@ import type { TypeInfo } from "@mjtdev/engine";
 import { Returns } from "./state/data-object/Returns";
 import { AppMessagesState } from "./state/ws/AppMessagesState";
 
-export const startPublicAccessPoint = (
-  accessPointId: string,
-  params: Record<string, string> = {},
-  schema?: TypeInfo<unknown>["schema"]
-) => {
+export const startPublicAccessPoint = ({
+  accessPointId,
+  params = {},
+  schema,
+  systemMessage,
+}: {
+  accessPointId: string;
+  params?: Record<string, string>;
+  schema?: TypeInfo<unknown>["schema"];
+  systemMessage?: string;
+}) => {
   return new Promise((resolve, reject) => {
     const returnId = Returns.addReturnListener({
       onTimeout: () => {
@@ -23,7 +29,7 @@ export const startPublicAccessPoint = (
     });
     AppMessagesState.dispatch({
       type: "chat:startPublicAgent",
-      detail: { returnId, accessPointId, params, schema },
+      detail: { returnId, accessPointId, params, schema, systemMessage },
     });
   });
 };
