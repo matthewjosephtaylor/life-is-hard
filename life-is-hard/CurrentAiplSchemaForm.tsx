@@ -25,7 +25,8 @@ export const CurrentAiplSchemaForm = ({
   }
   return (
     <>
-      {/* <SchemaForm
+      <JsonDisplay data={state.data} />
+      <SchemaForm
         key={`${crypto.randomUUID()}`}
         sx={{ margin: "0.5em" }}
         schema={state.schema}
@@ -34,8 +35,7 @@ export const CurrentAiplSchemaForm = ({
           console.log("onValueChange", field, value);
         }}
         {...rest}
-      /> */}
-      <JsonDisplay data={state.data} />
+      />
     </>
   );
 };

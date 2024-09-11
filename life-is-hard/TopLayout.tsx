@@ -24,7 +24,7 @@ const DrawerContent = styled(Box)<DrawerContentProps>`
   width: ${({ open }) =>
     open ? "22.5ch" : "0"}; /* Drawer width fully collapses */
   padding: ${({ open }) =>
-    open ? "2em" : "0"}; /* Remove padding when closed */
+    open ? "0.5em" : "0"}; /* Remove padding when closed */
   background-color: #2c3e50;
   color: white;
   height: 100%;
@@ -38,7 +38,7 @@ const DrawerContent = styled(Box)<DrawerContentProps>`
 
 // Styled handle to toggle the drawer, always visible
 const DrawerHandle = styled(Box)`
-  width: 4em;
+  width: 1em;
   height: 100%;
   background-color: #34495e;
   display: flex;
@@ -58,10 +58,10 @@ const MainContent = styled(Box)`
 
 export const TopLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const { selectedContent, gamePack } = useLihState();
-  const schemaMainContents = gamePackSchemasToMainContent(gamePack);
-  const mainContent =
-    MAIN_CONTENTS[selectedContent] ?? schemaMainContents[selectedContent];
+  const { mainContent: selectedContent, gamePack } = useLihState();
+  // const schemaMainContents = gamePackSchemasToMainContent(gamePack);
+  const mainContent = MAIN_CONTENTS[selectedContent];
+  // ?? schemaMainContents[selectedContent];
 
   // Toggle drawer open/close
   const toggleDrawer = () => {

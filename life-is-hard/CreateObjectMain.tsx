@@ -28,6 +28,8 @@ export const CreateObjectMain = () => {
     });
     const entity = gamePack.entities.find((e) => e.id === currentObjectId);
     const defaultObject = entity?.object as {};
+    console.log(`schema for ${currentObjectId}`, currentSchema);
+    console.log(`typeInfo for ${currentObjectId}`, typeInfo);
     setState((s) => ({
       ...s,
       typeInfo: typeInfo,
@@ -36,25 +38,25 @@ export const CreateObjectMain = () => {
       image: entity?.image,
       category: entity?.category ?? "lore",
     }));
-  }, [currentSchema, currentObjectId]);
+  }, [currentSchema, currentObjectId, gamePack]);
 
-  const config = useMemo(
-    () => ({ typeInfo: state.typeInfo }),
-    [state.typeInfo]
-  );
+  // const config = useMemo(
+  //   () => ({ typeInfo: state.typeInfo }),
+  //   [state.typeInfo]
+  // );
 
   if (!state.typeInfo) {
     return <Stack>Failed to create type info</Stack>;
   }
   return (
     <AiplComponentProvider
-      // config={{ typeInfo: state.typeInfo }}
-      config={config}
+      config={{ typeInfo: state.typeInfo }}
       defaultComponentState={state.defaultComponentState}
     >
       <Stack gap={"1em"} direction={"row"}>
         <Stack flexGrow={1}>
           <Stack>
+            {state.objectId}
             <StartNewAiplChatButton />
             <SaveObjectButton
               disabled={isUndefined(state.objectId)}
@@ -75,7 +77,7 @@ export const CreateObjectMain = () => {
               key={`image-${state.objectId}`}
               bytes={state.image?.bytes}
               request={state.image?.request}
-              onChange={(bytes, request) => {
+              onValueChange={(bytes, request) => {
                 console.log("onChange", bytes, request);
                 setState((s) => ({ ...s, image: { bytes, request } }));
               }}

@@ -31,13 +31,13 @@ export const EntitiesMenu = ({
             if (currentSchema) {
               s.currentSchema = currentSchema;
               s.currentObjectId = undefined;
-              s.selectedContent = `createType`;
+              s.mainContent = `createType`;
             }
             return;
           }
           s.currentSchema = currentItemSchema;
           s.currentObjectId = itemId;
-          s.selectedContent = `createObject`;
+          s.mainContent = `createObject`;
         });
       }}
     />

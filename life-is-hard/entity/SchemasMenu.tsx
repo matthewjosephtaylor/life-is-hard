@@ -20,7 +20,7 @@ export const SchemasMenu = () => {
         updateLihState((s) => {
           s.currentSchema = schemas.find((schema) => schema.$id === itemId);
           console.log("s.currentSchema", s.currentSchema);
-          s.selectedContent = "createType";
+          s.mainContent = "createType";
         });
       }}
     />

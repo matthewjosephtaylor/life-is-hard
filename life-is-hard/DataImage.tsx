@@ -1,6 +1,6 @@
 import { Bytes, isUndefined } from "@mjtdev/engine";
 import { Box, Button, CircularProgress, Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ImgHTMLAttributes } from "react";
 import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
 import { createImageGenPromptFromContext } from "./createImageGenPromptFromContext";
 import type { GameImage } from "./state/GameImage";
@@ -10,13 +10,18 @@ export const DataImage = ({
   src,
   bytes,
   request,
-  onChange = () => {},
-}: Partial<{
-  bytes: ArrayBuffer;
-  src: string;
-  request: Partial<SdApiTxt2ImgRequest>;
-  onChange: (bytes: ArrayBuffer, request: Partial<SdApiTxt2ImgRequest>) => void;
-}>) => {
+  onValueChange = () => {},
+  ...rest
+}: ImgHTMLAttributes<HTMLImageElement> &
+  Partial<{
+    bytes: ArrayBuffer;
+    src: string;
+    request: Partial<SdApiTxt2ImgRequest>;
+    onValueChange: (
+      bytes: ArrayBuffer,
+      request: Partial<SdApiTxt2ImgRequest>
+    ) => void;
+  }>) => {
   const [state, setState] = useState({
     bytes: undefined as undefined | ArrayBuffer,
     showGenerateButton: false,
@@ -94,7 +99,7 @@ export const DataImage = ({
             }
             const bytes = await Bytes.toArrayBuffer(blobs[0]);
             console.log(bytes);
-            onChange(bytes, imageGenRequest);
+            onValueChange(bytes, imageGenRequest);
             setState((s) => ({ ...s, bytes: bytes, loading: false }));
           }}
         >
@@ -107,7 +112,7 @@ export const DataImage = ({
         />
       ) : undefined}
       <Tooltip title={state.imageGenRequest?.prompt}>
-        <img src={state.src} />
+        <img src={state.src} {...rest} />
       </Tooltip>
     </Box>
   );

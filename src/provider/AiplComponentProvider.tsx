@@ -17,7 +17,6 @@ export const AiplComponentProvider = ({
   defaultComponentState?: Record<string, string | string[]>;
   children: ReactNode;
 }) => {
-  console.log("AiplComponentProvider", config);
   // State management for context state and client
   const [state, setState] = useState<AiplComponentContextState>({
     ...config,
