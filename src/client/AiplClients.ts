@@ -30,6 +30,7 @@ export const createAiplClient = (
         accessPointId: findFirstPapId()!,
         params,
         schema,
+        systemMessage,
       });
     },
     listAgents: async () => {
