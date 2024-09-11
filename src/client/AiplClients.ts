@@ -22,10 +22,15 @@ export const createAiplClient = (
       props: Partial<{
         params: Record<string, string>;
         schema: TypeInfo<unknown>["schema"];
+        systemMessage: string;
       }> = {}
     ) => {
-      const { params, schema } = props;
-      return startPublicAccessPoint(findFirstPapId()!, params, schema);
+      const { params, schema, systemMessage } = props;
+      return startPublicAccessPoint({
+        accessPointId: findFirstPapId()!,
+        params,
+        schema,
+      });
     },
     listAgents: async () => {
       const user = await getBackendUser();
