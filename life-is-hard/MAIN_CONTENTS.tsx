@@ -3,9 +3,11 @@ import { CreateTypeMain } from "./CreateTypeMain";
 import { CreateObjectMain } from "./CreateObjectMain";
 import type { LihState } from "./state/LihState";
 import { LocationsMainContent } from "./game/LocationsMainContent";
+import { AdventureMainContent } from "./AdventureMainContent";
 
 export const MAIN_CONTENTS: Record<LihState["mainContent"], ReactNode> = {
   createType: <CreateTypeMain />,
   createObject: <CreateObjectMain />,
   locations: <LocationsMainContent />,
+  adventure: <AdventureMainContent />,
 };

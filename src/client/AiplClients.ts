@@ -7,11 +7,17 @@ import { AppMessagesState } from "../state/ws/AppMessagesState";
 import { findFirstPapId } from "../ui/overlay/findFirstPapId";
 import { log } from "./log";
 import { askForGeneratedImages } from "../ai/askForGeneratedImages";
+import { addChatMessage } from "../state/chat/addChatMessage";
+import { useToolConfig } from "../aipl-components/useToolConfig";
 
 export type AiplClient = ReturnType<typeof createAiplClient>;
 
 export const createAiplClient = (
-  props: Partial<{ schema: TypeInfo<unknown>["schema"] }> = {}
+  defaultProps: Partial<{
+    schema: TypeInfo<unknown>["schema"];
+    params: Record<string, string>;
+    systemMessage: string;
+  }> = {}
 ) => {
   return {
     ask: async (props: AppMessageMap["chat:ask"]) => {
@@ -26,13 +32,20 @@ export const createAiplClient = (
         systemMessage: string;
       }> = {}
     ) => {
-      const { params, schema, systemMessage } = props;
+      const {
+        params = defaultProps.params,
+        schema = defaultProps.schema,
+        systemMessage = defaultProps.systemMessage,
+      } = props;
       return startPublicAccessPoint({
         accessPointId: findFirstPapId()!,
         params,
         schema,
         systemMessage,
       });
+    },
+    addChatUserMessage: async (props: Parameters<typeof addChatMessage>[0]) => {
+      return addChatMessage(props);
     },
     askForGeneratedImages: async (
       request: Partial<SdApiTxt2ImgRequest> = {},

@@ -12,6 +12,13 @@ export const PlayDrawerContents = () => {
       >
         Visit Location
       </Button>
+      <Button
+        onClick={() => {
+          updateLihState({ mainContent: "adventure" });
+        }}
+      >
+        Adventure!
+      </Button>
       <PcDrawerContents />
       <LocationDrawerContents />
     </Stack>

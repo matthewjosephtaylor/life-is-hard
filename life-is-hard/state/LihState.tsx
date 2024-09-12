@@ -10,7 +10,11 @@ export const DEFAULT_GAME_PACK: GamePack = {
 
 export const [useLihState, updateLihState, getLihState] = createState({
   mode: "play" as "design" | "play",
-  mainContent: "createType" as "createObject" | "createType" | "locations",
+  mainContent: "createType" as
+    | "createObject"
+    | "createType"
+    | "locations"
+    | "adventure",
   gamePack: DEFAULT_GAME_PACK,
   currentSchema: undefined as undefined | TypeInfo["schema"],
   currentObjectId: undefined as undefined | string,

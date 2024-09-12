@@ -12,15 +12,11 @@ export const TextBox = ({
 
   const value = useAiplValue(aiplName, defaultValue as unknown as string);
 
-  console.log(`TextBox ${aiplName}`, value);
-
   useEffect(() => {
     if (!ref.current) {
       return;
     }
     ref.current.value = toMany(value).join(", ");
-    console.log(value);
-    console.log(ref.current.value);
   }, [ref, value]);
   return <TextField inputRef={ref} {...rest} />;
 };

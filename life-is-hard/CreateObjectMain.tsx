@@ -12,6 +12,8 @@ import type { GameEntity } from "./state/GameEntity";
 import type { GameImage } from "./state/GameImage";
 import { DropdownList } from "./common/DropdownList";
 import { GAME_ENTITY_CATEGORIES } from "./state/GAME_ENTITY_CATEGORIES";
+import { createOtherTypesSystemMessage } from "./createOtherTypesSystemMessage";
+import { createOtherEntitiesSystemMessage } from "./createOtherEntitiesSystemMessage";
 
 export const CreateObjectMain = () => {
   const { currentSchema, currentObjectId, gamePack } = useLihState();
@@ -57,7 +59,9 @@ export const CreateObjectMain = () => {
         <Stack flexGrow={1}>
           <Stack>
             {state.objectId}
-            <StartNewAiplChatButton />
+            <StartNewAiplChatButton
+              systemMessage={createOtherEntitiesSystemMessage()}
+            />
             <SaveObjectButton
               disabled={isUndefined(state.objectId)}
               id={state.objectId ?? ""}
