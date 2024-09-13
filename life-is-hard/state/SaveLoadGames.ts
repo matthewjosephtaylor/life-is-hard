@@ -21,6 +21,28 @@ export const loadGamePackIntoBrowserState = async () => {
   });
 };
 
+export const loadGameSaveFromUrl = async (url: string) => {
+  const resp = await fetch(url);
+  if (!resp.ok) {
+    throw new Error(`Failed to fetch game pack from ${url}`);
+  }
+  const ab = await resp.arrayBuffer();
+  const gameSave = Bytes.msgPackToObject(new Uint8Array(ab)) as GameState;
+  return updateGameState(gameSave);
+};
+
+export const loadGamePackFromUrl = async (url: string) => {
+  const resp = await fetch(url);
+  if (!resp.ok) {
+    throw new Error(`Failed to fetch game pack from ${url}`);
+  }
+  const ab = await resp.arrayBuffer();
+  const gamePack = Bytes.msgPackToObject(new Uint8Array(ab)) as GamePack;
+  updateLihState((s) => {
+    s.gamePack = gamePack;
+  });
+};
+
 export const loadGameIntoBrowserState = async () => {
   const gameState = await loadGameState(getLihState().currentGameStateKey);
   return updateGameState(gameState);
@@ -53,10 +75,7 @@ export const loadGamePackFromDisk = async () => {
 export const storeGamePackFromStateToDisk = () => {
   const { gamePack } = getLihState();
   const bytes = Bytes.toMsgPack(gamePack);
-  return BrowserFiles.writeFileBrowser(
-    `gamePack-${gamePack.name}.gamepack`,
-    bytes
-  );
+  return BrowserFiles.writeFileBrowser(`${gamePack.name}.gamepack`, bytes);
 };
 
 export const storeGameFromStateToDisk = () => {
@@ -64,7 +83,7 @@ export const storeGameFromStateToDisk = () => {
   const gameState = getGameState();
   const bytes = Bytes.toMsgPack(gameState);
   return BrowserFiles.writeFileBrowser(
-    `gamePack-${currentGameStateKey}.gamesave`,
+    `${currentGameStateKey}.gamesave`,
     bytes
   );
 };

@@ -5,13 +5,22 @@ import { THEME } from "./THEME";
 import { TopLayout } from "./TopLayout";
 import {
   loadGameIntoBrowserState,
+  loadGamePackFromUrl,
   loadGamePackIntoBrowserState,
+  loadGameSaveFromUrl,
 } from "./state/SaveLoadGames";
 
-export const bootGame = async () => {
+export const bootGameBrowser = async () => {
   console.log("booting game...");
   await loadGamePackIntoBrowserState();
   await loadGameIntoBrowserState();
+  console.log("game booted");
+};
+
+export const bootGameUrl = async () => {
+  console.log("booting game...");
+  await loadGamePackFromUrl("./assets/Default.gamepack");
+  await loadGameSaveFromUrl("./assets/current.gamesave");
   console.log("game booted");
 };
 
@@ -19,6 +28,7 @@ export const LifeIsHard = () => {
   useEffect(() => {
     hideLoadingScreen();
     // bootGame();
+    bootGameUrl();
   }, []);
 
   return (
