@@ -44,7 +44,7 @@ export const AiplComponentProvider = ({
     []
   );
   useEffect(() => {
-    const client = createAiplClient({ schema: config.typeInfo?.schema });
+    const client = createAiplClient();
     setState((s) => ({
       ...s,
       ...config,

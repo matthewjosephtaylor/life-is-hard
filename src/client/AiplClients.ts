@@ -1,4 +1,4 @@
-import { isDefined, isUndefined, type TypeInfo } from "@mjtdev/engine";
+import { isUndefined, type TypeInfo } from "@mjtdev/engine";
 import { type AppMessageMap, type SdApiTxt2ImgRequest } from "ai-worker-common";
 import { askForGeneratedImages } from "../ai/askForGeneratedImages";
 import { getBackendUser } from "../backend/user/getBackendUser";
@@ -10,7 +10,7 @@ import { log } from "./log";
 
 export type AiplClient = ReturnType<typeof createAiplClient>;
 
-export const createAiplClient = (defaultProps: Partial<{}> = {}) => {
+export const createAiplClient = () => {
   return {
     ask: async (props: AppMessageMap["chat:ask"]) => {
       const result = await AppMessagesState.call("chat:ask", props);
