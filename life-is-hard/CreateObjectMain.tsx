@@ -7,7 +7,7 @@ import { CurrentAiplSchemaForm } from "./CurrentAiplSchemaForm";
 import { SaveObjectButton } from "./SaveObjectButton";
 import { StartNewAiplChatButton } from "./StartNewAiplChatButton";
 import { useLihState } from "./state/LihState";
-import { DataImage } from "./DataImage";
+import { ObjectImage } from "./ObjectImage";
 import type { GameEntity } from "./state/GameEntity";
 import type { GameImage } from "./state/GameImage";
 import { DropdownList } from "./common/DropdownList";
@@ -77,10 +77,12 @@ export const CreateObjectMain = () => {
               label={"Category"}
               selectedValue={state.category}
             />
-            <DataImage
+            <ObjectImage
               key={`image-${state.objectId}`}
               bytes={state.image?.bytes}
               request={state.image?.request}
+              schemaName={state.typeInfo.schema.$id}
+              object={state.defaultComponentState}
               onValueChange={(bytes, request) => {
                 console.log("onChange", bytes, request);
                 setState((s) => ({ ...s, image: { bytes, request } }));
@@ -98,10 +100,6 @@ export const CreateObjectMain = () => {
               maxWidth: "80ch",
               width: "100%",
               flexShrink: 1,
-            }}
-            onUpdate={async (ctx) => {
-              console.log("--- updated ---");
-              console.log(ctx.componentState);
             }}
           />
         </Stack>

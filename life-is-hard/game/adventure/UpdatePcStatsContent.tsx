@@ -1,11 +1,11 @@
 import { isUndefined, Keys, safe, TextGens } from "@mjtdev/engine";
 import { useState, useEffect } from "react";
-import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
-import { usePc } from "./usePc";
+import { useAiplComponentContext } from "../../../src/aipl-components/useAiplComponentContext";
+import { usePc } from "../../usePc";
 import { Button, Stack } from "@mui/material";
-import JsonDisplay from "./common/JsonDisplay";
-import { createAllTypesSystemMessage } from "./entity/createAllTypesSystemMessage";
-import { updateLihState } from "./state/LihState";
+import JsonDisplay from "../../common/JsonDisplay";
+import { createAllTypesSystemMessage } from "../../entity/createAllTypesSystemMessage";
+import { updateLihState } from "../../state/LihState";
 
 export const UpdatePcStatsContent = ({
   updatedStats,
@@ -19,14 +19,6 @@ export const UpdatePcStatsContent = ({
   const ctx = useAiplComponentContext();
   const pc = usePc();
   useEffect(() => {
-    // if (!newGoals) {
-    //   setState((s) => ({ ...s, goals: [] }));
-    //   return;
-    // }
-    // const goals = newGoals.flatMap((goal) =>
-    //   valueToCategoryEntity({ value: goal, category: "goal" })
-    // );
-    // setState((s) => ({ ...s, goals }));
     setState((s) => ({ ...s, updatedStats }));
   }, [Keys.stableStringify([updatedStats, pc]), ctx?.client]);
 

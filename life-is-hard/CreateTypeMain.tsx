@@ -94,10 +94,6 @@ export const CreateTypeMain = () => {
               width: "100%",
               flexShrink: 1,
             }}
-            onUpdate={async (ctx) => {
-              console.log("--- updated ---");
-              console.log(ctx.componentState);
-            }}
           />
         </Stack>
       </Stack>

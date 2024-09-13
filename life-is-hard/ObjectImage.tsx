@@ -1,21 +1,25 @@
 import { Bytes, isUndefined } from "@mjtdev/engine";
 import { Box, Button, CircularProgress, Tooltip } from "@mui/material";
-import { useEffect, useState, type ImgHTMLAttributes } from "react";
-import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
-import { createImageGenPromptFromContext } from "./createImageGenPromptFromContext";
-import type { GameImage } from "./state/GameImage";
 import type { SdApiTxt2ImgRequest } from "ai-worker-common";
+import { useEffect, useState, type ImgHTMLAttributes } from "react";
+import { createImageGenPromptFromObject } from "./createImageGenPromptFromObject";
+import type { GameImage } from "./state/GameImage";
+import { AiplClients } from "../src/client/AiplClients";
 
-export const DataImage = ({
+export const ObjectImage = ({
   src,
   bytes,
   request,
+  schemaName,
+  object,
   onValueChange = () => {},
   ...rest
 }: ImgHTMLAttributes<HTMLImageElement> &
   Partial<{
     bytes: ArrayBuffer;
     src: string;
+    schemaName?: string;
+    object?: unknown;
     request: Partial<SdApiTxt2ImgRequest>;
     onValueChange: (
       bytes: ArrayBuffer,
@@ -30,9 +34,9 @@ export const DataImage = ({
     imageGenRequest: undefined as undefined | GameImage["request"],
     promptRequest: undefined as
       | undefined
-      | ReturnType<typeof createImageGenPromptFromContext>,
+      | ReturnType<typeof createImageGenPromptFromObject>,
   });
-  const ctx = useAiplComponentContext();
+  // const ctx = useAiplComponentContext();
   useEffect(() => {
     setState((s) => ({ ...s, src }));
   }, [src]);
@@ -45,9 +49,9 @@ export const DataImage = ({
   }, [request]);
 
   useEffect(() => {
-    const prompt = createImageGenPromptFromContext(ctx);
+    const prompt = createImageGenPromptFromObject({ schemaName, object });
     setState((s) => ({ ...s, promptRequest: prompt }));
-  }, [ctx]);
+  }, [schemaName, object]);
 
   useEffect(() => {
     if (isUndefined(state.bytes)) {
@@ -85,13 +89,13 @@ export const DataImage = ({
               return;
             }
             setState((s) => ({ ...s, loading: true }));
-            const prompt = await ctx?.client?.ask(state.promptRequest);
+            const client = AiplClients.createAiplClient();
+            const prompt = await client.ask(state.promptRequest);
 
             console.log(prompt);
             const imageGenRequest: Partial<SdApiTxt2ImgRequest> = { prompt };
             setState((s) => ({ ...s, imageGenRequest }));
-            const blobs =
-              await ctx?.client?.askForGeneratedImages(imageGenRequest);
+            const blobs = await client.askForGeneratedImages(imageGenRequest);
             console.log(blobs);
             if (isUndefined(blobs)) {
               setState((s) => ({ ...s, loading: false }));

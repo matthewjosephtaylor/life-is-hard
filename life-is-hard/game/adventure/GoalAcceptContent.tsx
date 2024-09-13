@@ -1,10 +1,10 @@
 import { Keys } from "@mjtdev/engine";
 import { Stack } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useAiplComponentContext } from "../src/aipl-components/useAiplComponentContext";
-import { AcceptGoalButton } from "./game/adventure/AcceptGoalButton";
-import type { GameEntity } from "./state/GameEntity";
-import { valueToCategoryEntity } from "./valueToCategoryEntity";
+import { useAiplComponentContext } from "../../../src/aipl-components/useAiplComponentContext";
+import { AcceptGoalButton } from "./AcceptGoalButton";
+import type { GameEntity } from "../../state/GameEntity";
+import { valueToCategoryEntity } from "../../valueToCategoryEntity";
 
 export const GoalAcceptContent = ({ newGoals }: { newGoals?: unknown[] }) => {
   const [state, setState] = useState({

@@ -1,10 +1,33 @@
 import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { AiplClients } from "../../src/client/AiplClients";
 import { DataImage } from "../../src/ui/image/DataImage";
-import { nameOfValue } from "../common/nameOfValue";
+import { ifGet } from "../common/ifGet";
 import { updateLihState, useLihState } from "../state/LihState";
+import { BASIC_ENTITY_METADATA_TYPE_INFO } from "./ENTITY_METADATA_TYPE_INFO";
+import { updateGameEntityMetadataIfNotExist } from "./updateGameEntityMetadataIfNotExist";
 
 export const LocationsMainContent = () => {
   const { gamePack } = useLihState();
+  const locations = gamePack.entities.filter(
+    (entity) => entity.category === "location"
+  );
+
+  useEffect(() => {
+    const client = AiplClients.createAiplClient();
+    console.log("locations", locations);
+    try {
+      locations.forEach((location) => {
+        updateGameEntityMetadataIfNotExist({
+          client,
+          entity: location,
+          metadataTypeInfo: BASIC_ENTITY_METADATA_TYPE_INFO,
+        });
+      });
+    } catch (error) {
+      console.error("error", error);
+    }
+  }, []);
   return (
     <Stack direction={"row"} flexWrap={"wrap"}>
       {gamePack.entities
@@ -20,7 +43,9 @@ export const LocationsMainContent = () => {
           >
             <CardContent>
               <Typography variant={"caption"}>
-                {nameOfValue(entity.object) ?? "Unknown"}
+                {ifGet(BASIC_ENTITY_METADATA_TYPE_INFO, entity.meta, (l) => {
+                  return l.name;
+                }) ?? "Unknown"}
               </Typography>
               <Stack sx={{ maxWidth: "10em" }}>
                 <DataImage {...entity.image} />

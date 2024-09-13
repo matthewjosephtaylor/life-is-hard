@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { ifGet } from "../../common/ifGet";
-import { DataImage } from "../../DataImage";
+import { ObjectImage } from "../../ObjectImage";
 import type { GameEntity } from "../../state/GameEntity";
 import { updateLihState, useLihState } from "../../state/LihState";
 import { GOAL_ENTITY_METADATA_TYPE_INFO } from "../ENTITY_METADATA_TYPE_INFO";
@@ -33,7 +33,7 @@ export const GoalContent = ({ goal }: { goal: GameEntity }) => {
             position: "relative",
           }}
         >
-          <DataImage
+          <ObjectImage
             style={{
               maxWidth: "5em",
               objectFit: "contain",
