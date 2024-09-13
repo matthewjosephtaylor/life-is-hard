@@ -42,11 +42,6 @@ export const CreateObjectMain = () => {
     }));
   }, [currentSchema, currentObjectId, gamePack]);
 
-  // const config = useMemo(
-  //   () => ({ typeInfo: state.typeInfo }),
-  //   [state.typeInfo]
-  // );
-
   if (!state.typeInfo) {
     return <Stack>Failed to create type info</Stack>;
   }

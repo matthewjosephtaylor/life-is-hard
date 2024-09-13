@@ -1,7 +1,9 @@
+import { getGameState, useGameState } from "../state/GameState";
 import { getLihState, useLihState } from "../state/LihState";
 
 export const getCurrentlyActiveGoals = () => {
-  const { gamePack, activeGoals } = getLihState();
+  const { gamePack } = getLihState();
+  const { activeGoals } = getGameState();
   const { entities } = gamePack;
   return entities
     .filter((e) => e.category === "goal")
@@ -9,7 +11,8 @@ export const getCurrentlyActiveGoals = () => {
 };
 
 export const useCurrentlyActiveGoals = () => {
-  const { gamePack, activeGoals } = useLihState();
+  const { gamePack } = useLihState();
+  const { activeGoals } = useGameState();
   const { entities } = gamePack;
   return entities
     .filter((e) => e.category === "goal")

@@ -1,10 +1,17 @@
 import { Bytes, isUndefined } from "@mjtdev/engine";
-import { Box, Button, CircularProgress, Tooltip } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import type { SdApiTxt2ImgRequest } from "ai-worker-common";
 import { useEffect, useState, type ImgHTMLAttributes } from "react";
 import { createImageGenPromptFromObject } from "./createImageGenPromptFromObject";
 import type { GameImage } from "./state/GameImage";
 import { AiplClients } from "../src/client/AiplClients";
+import ReplayIcon from "@mui/icons-material/Replay";
 
 export const ObjectImage = ({
   src,
@@ -77,11 +84,12 @@ export const ObjectImage = ({
       }}
       sx={{
         position: "relative",
-        minHeight: "10em",
+        // minHeight: "10em",
       }}
     >
       {state.showGenerateButton || isUndefined(state.src) ? (
-        <Button
+        <IconButton
+          aria-label="generate image"
           sx={{ bottom: "0.5em", position: "absolute", right: "0.5em" }}
           onClick={async () => {
             console.log("generating image");
@@ -107,8 +115,8 @@ export const ObjectImage = ({
             setState((s) => ({ ...s, bytes: bytes, loading: false }));
           }}
         >
-          Generate Image
-        </Button>
+          <ReplayIcon />
+        </IconButton>
       ) : undefined}
       {state.loading ? (
         <CircularProgress

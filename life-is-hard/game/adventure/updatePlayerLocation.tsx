@@ -1,5 +1,6 @@
 import { isDefined, isUndefined } from "@mjtdev/engine";
 import { ifGet } from "../../common/ifGet";
+import { updateGameState } from "../../state/GameState";
 import { getLihState, updateLihState } from "../../state/LihState";
 import { BASIC_ENTITY_METADATA_TYPE_INFO } from "../ENTITY_METADATA_TYPE_INFO";
 
@@ -31,7 +32,7 @@ export const updatePlayerLocation = ({
     });
     console.log("realLocation", realLocation);
     if (isDefined(realLocation)) {
-      updateLihState((s) => {
+      updateGameState((s) => {
         s.currentLocationId = realLocation.id;
       });
     }

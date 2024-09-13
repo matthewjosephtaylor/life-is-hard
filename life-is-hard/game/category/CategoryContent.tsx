@@ -1,9 +1,7 @@
 import {
   Card,
   CardContent,
-  Checkbox,
   Divider,
-  FormControlLabel,
   Stack,
   TextField,
   Typography,
@@ -11,15 +9,14 @@ import {
 import { ifGet } from "../../common/ifGet";
 import { ObjectImage } from "../../ObjectImage";
 import type { GameEntity } from "../../state/GameEntity";
-import { updateGameState, useGameState } from "../../state/GameState";
+import { BASIC_ENTITY_METADATA_TYPE_INFO } from "../ENTITY_METADATA_TYPE_INFO";
+import { ButtonGroup } from "../../common/ButtonGroup";
 import { updateLihState } from "../../state/LihState";
-import { GOAL_ENTITY_METADATA_TYPE_INFO } from "../ENTITY_METADATA_TYPE_INFO";
 
-export const GoalContent = ({ goal }: { goal: GameEntity }) => {
-  const { activeGoals } = useGameState();
+export const CategoryContent = ({ entity }: { entity: GameEntity }) => {
   return (
     <Card
-      key={goal.id}
+      key={entity.id}
       sx={{
         border: "1px solid black",
         margin: "0.5em",
@@ -39,27 +36,41 @@ export const GoalContent = ({ goal }: { goal: GameEntity }) => {
               maxWidth: "5em",
               objectFit: "contain",
             }}
-            {...goal.image}
+            {...entity.image}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             sx={{ position: "absolute", top: 0, right: 0 }}
             control={
               <Checkbox
-                checked={activeGoals.includes(goal.id)}
+                checked={activeGoals.includes(entity.id)}
                 onChange={(evt) => {
-                  updateGameState((s) => {
-                    s.activeGoals = evt.target.checked
-                      ? [...activeGoals, goal.id]
-                      : activeGoals.filter((id) => id !== goal.id);
+                  updateLihState({
+                    activeGoals: evt.target.checked
+                      ? [...activeGoals, entity.id]
+                      : activeGoals.filter((id) => id !== entity.id),
                   });
                 }}
               />
             }
             label="Active"
+          /> */}
+          <ButtonGroup
+            actions={{
+              delete: () => {
+                updateLihState((s) => {
+                  s.gamePack.entities = s.gamePack.entities.filter(
+                    (e) => e.id !== entity.id
+                  );
+                });
+              },
+            }}
           />
           <Typography variant={"caption"}>
-            {ifGet(GOAL_ENTITY_METADATA_TYPE_INFO, goal.meta, (g) => g.name) ??
-              "No Name"}
+            {ifGet(
+              BASIC_ENTITY_METADATA_TYPE_INFO,
+              entity.meta,
+              (g) => g.name
+            ) ?? "No Name"}
           </Typography>
         </Stack>
         <Stack
@@ -76,23 +87,23 @@ export const GoalContent = ({ goal }: { goal: GameEntity }) => {
             multiline
             value={
               ifGet(
-                GOAL_ENTITY_METADATA_TYPE_INFO,
-                goal.meta,
+                BASIC_ENTITY_METADATA_TYPE_INFO,
+                entity.meta,
                 (g) => g.description
               ) ?? "No Description"
             }
           />
-          <TextField
+          {/* <TextField
             label={"Rewards"}
             multiline
             value={
               ifGet(
                 GOAL_ENTITY_METADATA_TYPE_INFO,
-                goal.meta,
+                entity.meta,
                 (g) => g.rewards
               ) ?? "No Rewards"
             }
-          />
+          /> */}
           {/* <JsonDisplay data={goal.object} /> */}
         </Stack>
       </CardContent>

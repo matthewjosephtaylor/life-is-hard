@@ -1,39 +1,53 @@
 import { isDefined, TypeBoxes } from "@mjtdev/engine";
+import { getBasicEntityMeta } from "../../common/ifGet";
 import { getLihState } from "../../state/LihState";
-import { ifGet } from "../../common/ifGet";
-import { BASIC_ENTITY_METADATA_TYPE_INFO } from "../ENTITY_METADATA_TYPE_INFO";
 
 const createAdventureSceneTypeInfo = () => {
-  const locationNames = getLihState()
-    .gamePack.entities.filter((e) => e.category === "location")
-    .map((location) =>
-      ifGet(BASIC_ENTITY_METADATA_TYPE_INFO, location, (l) => l.name)
-    )
+  const { gamePack } = getLihState();
+  const locationNames = gamePack.entities
+    .filter((e) => e.category === "location")
+    .map((location) => getBasicEntityMeta(location.meta, (l) => l.name))
     .filter(isDefined);
+  const npcNames = gamePack.entities
+    .filter((e) => e.category === "npc")
+    .map((npc) => getBasicEntityMeta(npc.meta, (l) => l.name))
+    .filter(isDefined);
+
   return TypeBoxes.createTypeInfo((Type) => {
     return Type.Object(
       {
         sceneText: Type.String({
-          description: "A paragraph of text describing the current scene.",
+          description:
+            "A paragraph of text describing the current scene as of the last interaction.",
         }),
         newGoals: Type.Array(Type.Any(), {
           description:
             "A list of new goals for the user to choose from, or empty if no new goals, be sure to fill out the goal objects completely",
         }),
-        updatedCharacterStats: Type.Any({
+        updatedPlayerCharacterStats: Type.Any({
           description:
-            "A list of updated character stats, or empty if no updates from last interaction",
+            "A list of updated player character stats, or empty if no updates from last interaction",
         }),
         didExit: Type.Boolean({
           description:
-            "A boolean that is true if the user exited the scene in some way",
+            "A boolean that is true if the user exited the scene without changing location",
         }),
+        npcs: Type.Array(
+          Type.Union([
+            ...npcNames.map((name) => Type.Literal(name)),
+            Type.String(),
+          ]),
+          {
+            description:
+              "NPCs that are present in the scene, Names ONLY, it is OK to have an unknown character, MUST be a unique character name, not generic!",
+          }
+        ),
         currentLocation: Type.Optional(
           Type.Union(
             locationNames.map((name) => Type.Literal(name)),
             {
               description:
-                "The name of the location that the user is currently in (existing locations only)",
+                "The name of the location that the user is currently in Names ONLY",
             }
           )
         ),
@@ -61,9 +75,9 @@ const createAdventureSceneTypeInfo = () => {
         ),
       },
       {
-        $id: "AdventureSceneState",
+        $id: "SceneAndPlayerCharacterStateUpdate",
         description:
-          "the most recent state of the scene after last assistant message, DO NOT USE the PREVIOUS state on response",
+          "the most recent state of the scene and player after last assistant message, update the goals and stats as needed if there are new ones from the last interaction",
       }
     );
   });

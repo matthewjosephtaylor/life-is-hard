@@ -6,6 +6,7 @@ import { ifGet } from "../common/ifGet";
 import { updateLihState, useLihState } from "../state/LihState";
 import { BASIC_ENTITY_METADATA_TYPE_INFO } from "./ENTITY_METADATA_TYPE_INFO";
 import { updateGameEntityMetadataIfNotExist } from "./updateGameEntityMetadataIfNotExist";
+import { updateGameState } from "../state/GameState";
 
 export const LocationsMainContent = () => {
   const { gamePack } = useLihState();
@@ -52,7 +53,9 @@ export const LocationsMainContent = () => {
               </Stack>
               <Button
                 onClick={() => {
-                  updateLihState({ currentLocationId: entity.id });
+                  updateGameState((s) => {
+                    s.currentLocationId = entity.id;
+                  });
                 }}
               >
                 Visit

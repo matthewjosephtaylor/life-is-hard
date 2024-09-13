@@ -4,6 +4,7 @@ import { PcDrawerContents } from "./PcDrawerContents";
 import { LocationDrawerContents } from "./LocationDrawerContents";
 import { updateLihState } from "./state/LihState";
 import { GoalsDrawerContents } from "./GoalsDrawerContents";
+import { startNewAdventureSceneChat } from "./game/adventure/startNewAdventureSceneChat";
 
 export const PlayDrawerContents = () => {
   return (
@@ -17,7 +18,14 @@ export const PlayDrawerContents = () => {
           goals: () => {
             updateLihState({ mainContent: "goals" });
           },
+          npcCharacters: () => {
+            updateLihState({ mainContent: "npcCharacters" });
+          },
+          playableCharacters: () => {
+            updateLihState({ mainContent: "pcCharacters" });
+          },
           adventure: () => {
+            startNewAdventureSceneChat();
             updateLihState({ mainContent: "adventure" });
           },
         }}

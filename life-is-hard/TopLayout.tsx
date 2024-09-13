@@ -58,12 +58,10 @@ const MainContent = styled(Box)`
 
 export const TopLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const { mainContent: selectedContent, gamePack } = useLihState();
-  // const schemaMainContents = gamePackSchemasToMainContent(gamePack);
+  const { mainContent: selectedContent } = useLihState();
   const mainContent = MAIN_CONTENTS[selectedContent];
-  // ?? schemaMainContents[selectedContent];
+  console.log("selectedContent", selectedContent);
 
-  // Toggle drawer open/close
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };

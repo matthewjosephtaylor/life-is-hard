@@ -7,5 +7,6 @@ export type GameEntity<T = unknown> = {
   object?: T;
   category: (typeof GAME_ENTITY_CATEGORIES)[number];
   image?: GameImage;
+  dynamic?: boolean;
   meta?: unknown;
 };

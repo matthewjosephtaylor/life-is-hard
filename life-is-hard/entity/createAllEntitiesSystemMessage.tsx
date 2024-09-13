@@ -10,6 +10,7 @@ export const createAllEntitiesSystemMessage = () => {
       return JSON.stringify({
         entityType: entity.category,
         ...(entity?.object ?? {}),
+        ...(entity?.meta ?? {}),
       });
     }),
   ].join("\n");

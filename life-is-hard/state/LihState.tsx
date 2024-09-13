@@ -11,12 +11,11 @@ export const DEFAULT_GAME_PACK: GamePack = {
 
 export const [useLihState, updateLihState, getLihState] = createState({
   mode: "play" as "design" | "play",
-  mainContent: "createType" as keyof typeof MAIN_CONTENTS,
+  mainContent: "locations" as keyof typeof MAIN_CONTENTS,
   gamePack: DEFAULT_GAME_PACK,
+  currentGameStateKey: "current",
   currentSchema: undefined as undefined | TypeInfo["schema"],
   currentObjectId: undefined as undefined | string,
-  currentLocationId: undefined as undefined | string,
-  activeGoals: [] as string[],
 });
 
 export type LihState = ReturnType<typeof getLihState>;
