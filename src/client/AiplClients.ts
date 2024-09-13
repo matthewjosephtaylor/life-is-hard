@@ -1,18 +1,16 @@
-import { isUndefined, type TypeInfo } from "@mjtdev/engine";
-// import { connectWs } from "./connectWs";
+import { isDefined, isUndefined, type TypeInfo } from "@mjtdev/engine";
 import { type AppMessageMap, type SdApiTxt2ImgRequest } from "ai-worker-common";
+import { askForGeneratedImages } from "../ai/askForGeneratedImages";
 import { getBackendUser } from "../backend/user/getBackendUser";
 import { startPublicAccessPoint } from "../startPublicAccessPoint";
+import { addChatMessage } from "../state/chat/addChatMessage";
 import { AppMessagesState } from "../state/ws/AppMessagesState";
 import { findFirstPapId } from "../ui/overlay/findFirstPapId";
 import { log } from "./log";
-import { askForGeneratedImages } from "../ai/askForGeneratedImages";
 
 export type AiplClient = ReturnType<typeof createAiplClient>;
 
-export const createAiplClient = (
-  props: Partial<{ schema: TypeInfo<unknown>["schema"] }> = {}
-) => {
+export const createAiplClient = (defaultProps: Partial<{}> = {}) => {
   return {
     ask: async (props: AppMessageMap["chat:ask"]) => {
       const result = await AppMessagesState.call("chat:ask", props);
@@ -33,6 +31,9 @@ export const createAiplClient = (
         schema,
         systemMessage,
       });
+    },
+    addChatUserMessage: async (props: Parameters<typeof addChatMessage>[0]) => {
+      return addChatMessage(props);
     },
     askForGeneratedImages: async (
       request: Partial<SdApiTxt2ImgRequest> = {},
