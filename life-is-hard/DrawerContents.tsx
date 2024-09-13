@@ -2,7 +2,7 @@ import { Divider, Stack } from "@mui/material";
 import { ButtonGroup } from "./common/ButtonGroup";
 import { DropdownList } from "./common/DropdownList";
 import { DRAWER_CONTENTS } from "./DRAWER_CONTENTS";
-import { loadGamePack } from "./state/GAME_PACK_DB";
+import { loadGamePack, storeGamePack } from "./state/GAME_PACK_DB";
 import { getLihState, updateLihState } from "./state/LihState";
 
 export const DrawerContents = () => {
@@ -38,6 +38,9 @@ export const DrawerContents = () => {
               s.gamePack = gamePack;
               s.mainContent = "createType";
             });
+          },
+          storeGamePack: async () => {
+            storeGamePack(getLihState().gamePack);
           },
         }}
       />

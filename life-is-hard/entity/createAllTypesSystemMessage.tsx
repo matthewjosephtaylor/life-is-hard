@@ -1,5 +1,5 @@
 import { TypeBoxes } from "@mjtdev/engine";
-import { getLihState } from "./state/LihState";
+import { getLihState } from "../state/LihState";
 
 
 export const createAllTypesSystemMessage = () => {

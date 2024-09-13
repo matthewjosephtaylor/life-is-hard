@@ -1,24 +1,16 @@
-import { isUndefined, type TypeInfo } from "@mjtdev/engine";
-// import { connectWs } from "./connectWs";
+import { isDefined, isUndefined, type TypeInfo } from "@mjtdev/engine";
 import { type AppMessageMap, type SdApiTxt2ImgRequest } from "ai-worker-common";
+import { askForGeneratedImages } from "../ai/askForGeneratedImages";
 import { getBackendUser } from "../backend/user/getBackendUser";
 import { startPublicAccessPoint } from "../startPublicAccessPoint";
+import { addChatMessage } from "../state/chat/addChatMessage";
 import { AppMessagesState } from "../state/ws/AppMessagesState";
 import { findFirstPapId } from "../ui/overlay/findFirstPapId";
 import { log } from "./log";
-import { askForGeneratedImages } from "../ai/askForGeneratedImages";
-import { addChatMessage } from "../state/chat/addChatMessage";
-import { useToolConfig } from "../aipl-components/useToolConfig";
 
 export type AiplClient = ReturnType<typeof createAiplClient>;
 
-export const createAiplClient = (
-  defaultProps: Partial<{
-    schema: TypeInfo<unknown>["schema"];
-    params: Record<string, string>;
-    systemMessage: string;
-  }> = {}
-) => {
+export const createAiplClient = (defaultProps: Partial<{}> = {}) => {
   return {
     ask: async (props: AppMessageMap["chat:ask"]) => {
       const result = await AppMessagesState.call("chat:ask", props);
@@ -32,11 +24,7 @@ export const createAiplClient = (
         systemMessage: string;
       }> = {}
     ) => {
-      const {
-        params = defaultProps.params,
-        schema = defaultProps.schema,
-        systemMessage = defaultProps.systemMessage,
-      } = props;
+      const { params, schema, systemMessage } = props;
       return startPublicAccessPoint({
         accessPointId: findFirstPapId()!,
         params,

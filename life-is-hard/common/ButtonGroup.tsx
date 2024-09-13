@@ -13,12 +13,13 @@ export const ButtonGroup = ({
   actions,
   style = {},
   buttonStyle = {},
-  direction,
+  direction = "row",
   templateVars = {},
   disableds = {},
   buttonProps = {},
   flexWrap = "wrap",
   gap = "1",
+  defaultButtonProps = {},
   ...rest
 }: {
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
@@ -27,10 +28,15 @@ export const ButtonGroup = ({
   actions: Record<string, () => void>;
   templateVars?: Record<string, string | undefined>;
   buttonProps?: Record<string, ButtonProps>;
+  defaultButtonProps?: ButtonProps;
   disableds?: Record<string, boolean>;
 } & StackProps) => {
   const contents = Object.entries(actions).map((entry) => {
     const [key, value] = entry;
+    const buttonRest = {
+      ...defaultButtonProps,
+      ...buttonProps[key],
+    };
     return (
       <Button
         disabled={disableds[key]}
@@ -41,7 +47,7 @@ export const ButtonGroup = ({
         }}
         onClick={value}
         key={key}
-        {...(buttonProps[key] ?? {})}
+        {...buttonRest}
       >
         <Typography
           variant="caption"

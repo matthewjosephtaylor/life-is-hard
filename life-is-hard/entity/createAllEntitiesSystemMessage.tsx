@@ -1,5 +1,4 @@
-import { getLihState } from "./state/LihState";
-
+import { getLihState } from "../state/LihState";
 
 export const createAllEntitiesSystemMessage = () => {
   const { gamePack } = getLihState();

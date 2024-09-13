@@ -1,8 +1,7 @@
 import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
-import { updateLihState, useLihState } from "../state/LihState";
 import { DataImage } from "../../src/ui/image/DataImage";
 import { nameOfValue } from "../common/nameOfValue";
-import JsonDisplay from "../common/JsonDisplay";
+import { updateLihState, useLihState } from "../state/LihState";
 
 export const LocationsMainContent = () => {
   const { gamePack } = useLihState();

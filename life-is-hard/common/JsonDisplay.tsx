@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Typography, Chip } from "@mui/material";
 
-interface JsonDisplayProps {
+const JsonDisplay = ({
+  data,
+  indentLevel = 0,
+  indentSize = 1,
+}: {
   data: any;
   indentLevel?: number;
-}
-
-const JsonDisplay: React.FC<JsonDisplayProps> = ({ data, indentLevel = 0 }) => {
-  const indentSize = 2; // Adjust the indent size to your preference
-
+  indentSize?: number;
+}) => {
   const renderValue = (value: any, level: number): React.ReactNode => {
     switch (typeof value) {
       case "string":
@@ -20,7 +21,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data, indentLevel = 0 }) => {
               padding: "4px 8px",
               border: "1px solid",
               borderColor: "primary.main",
-              borderRadius: "16px",
+              borderRadius: "0.5em",
               backgroundColor: "background.paper",
               color: "primary.main",
               whiteSpace: "normal", // Allow text to wrap
@@ -122,7 +123,7 @@ const JsonDisplay: React.FC<JsonDisplayProps> = ({ data, indentLevel = 0 }) => {
                     borderRadius: 1,
                     p: 1,
                     mb: 0.5,
-                    minWidth: 100,
+                    // minWidth: 100,
                     display: "flex",
                     flexDirection: "column",
                     gap: 0.5,
