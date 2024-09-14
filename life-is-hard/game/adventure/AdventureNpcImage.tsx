@@ -10,7 +10,6 @@ import type { GameEntity } from "../../state/GameEntity";
 import type { GameImage } from "../../state/GameImage";
 import { useLihState } from "../../state/LihState";
 import { useCurrentLocation } from "../../useCurrentLocation";
-import { createNpcCharacter } from "./createNpcCharacter";
 
 export const AdventureNpcImage = memo(({ npcName }: { npcName: string }) => {
   const [state, setState] = useState({
@@ -27,7 +26,7 @@ export const AdventureNpcImage = memo(({ npcName }: { npcName: string }) => {
   if (isUndefined(entity)) {
     console.log(`Could not find entity with name: ${npcName}`);
     console.log(gamePack.entities);
-    createNpcCharacter(npcName);
+    // createNpcCharacter(npcName);
   }
   const updateImage = async ({ entity }: { entity?: GameEntity }) => {
     if (isUndefined(entity)) {

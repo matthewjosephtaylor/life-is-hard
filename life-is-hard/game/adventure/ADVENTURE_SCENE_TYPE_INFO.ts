@@ -20,18 +20,26 @@ const createAdventureSceneTypeInfo = () => {
           description:
             "A paragraph of text describing the current scene as of the last interaction.",
         }),
-        newGoals: Type.Array(Type.Any(), {
-          description:
-            "A list of new goals for the user to choose from, or empty if no new goals, be sure to fill out the goal objects completely",
-        }),
-        updatedPlayerCharacterStats: Type.Any({
-          description:
-            "A list of updated player character stats, or empty if no updates from last interaction",
-        }),
-        didExit: Type.Boolean({
-          description:
-            "A boolean that is true if the user exited the scene without changing location",
-        }),
+        commands: Type.Array(
+          Type.Object(
+            {
+              action: Type.Union([
+                Type.Literal("update"),
+                Type.Literal("add"),
+                Type.Literal("remove"),
+              ]),
+              target: Type.String({
+                description:
+                  "The name of the entity to update, add, or remove.",
+              }),
+              changes: Type.Record(Type.String(), Type.Any()),
+            },
+            {
+              description:
+                "A list of commands to update the game state, including adding, removing, or updating entities. Only create commands for the last Assistant response! Clear out any previous commands! All game types/objects are also known as entities.",
+            }
+          )
+        ),
         npcs: Type.Array(
           Type.Union([
             ...npcNames.map((name) => Type.Literal(name)),
@@ -75,9 +83,9 @@ const createAdventureSceneTypeInfo = () => {
         ),
       },
       {
-        $id: "SceneAndPlayerCharacterStateUpdate",
+        $id: "SceneUpdate",
         description:
-          "the most recent state of the scene and player after last assistant message, update the goals and stats as needed if there are new ones from the last interaction",
+          "Update of the scene, including new commands. MUST BE A correct JSON OBJECT! DO NOT include any comments or extra text! Follow the TypeScript type exactly!",
       }
     );
   });

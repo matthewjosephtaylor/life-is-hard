@@ -3,6 +3,7 @@ import { ButtonGroup } from "./common/ButtonGroup";
 import { DropdownList } from "./common/DropdownList";
 import { DRAWER_CONTENTS } from "./DRAWER_CONTENTS";
 import { getLihState, updateLihState } from "./state/LihState";
+import { getGameState } from "./state/GameState";
 
 export const DrawerContents = () => {
   const { mode } = getLihState();
@@ -35,6 +36,10 @@ export const DrawerContents = () => {
             updateLihState((s) => {
               s.mainContent = "saveload";
             });
+          },
+          dump: () => {
+            console.log(getLihState().gamePack);
+            console.log(getGameState());
           },
         }}
       />

@@ -10,7 +10,7 @@ import { AdventureSceneImage } from "./AdventureSceneImage";
 import { ChooseOptionContent } from "./ChoosOptionConent";
 import { GoalAcceptContent } from "./GoalAcceptContent";
 import { NpcsContent } from "./NpcsContent";
-import { UpdatePcStatsContent } from "./UpdatePcStatsContent";
+import { UpdateWorldContent } from "./UpdateWorldContent";
 import { updatePlayerLocation } from "./updatePlayerLocation";
 
 export const AdventureMainContent = () => {
@@ -33,11 +33,9 @@ export const AdventureMainContent = () => {
   useEffect(() => {
     updatePlayerLocation({
       currentLocation: state.data?.currentLocation,
-      didExit: state.data?.didExit,
+      // didExit: state.data?.didExit,
     });
-  }, [
-    Keys.stableStringify([state.data?.currentLocation, state.data?.didExit]),
-  ]);
+  }, [Keys.stableStringify([state.data?.currentLocation])]);
 
   if (!state.typeInfo) {
     return <></>;
@@ -85,7 +83,12 @@ export const AdventureMainContent = () => {
                 zIndex: -1,
               }}
             >
-              <AdventureSceneImage npcNames={state.data?.npcs} />
+              <AdventureSceneImage
+                npcNames={
+                  // state.data?.npcs
+                  []
+                }
+              />
             </Stack>
           </Stack>
           <Stack
@@ -96,15 +99,15 @@ export const AdventureMainContent = () => {
               backgroundColor: Colors.from("black").alpha(0.6).toString(),
             }}
           >
-            <GoalAcceptContent newGoals={state.data?.newGoals} />
+            {/* <GoalAcceptContent newGoals={state.data?.newGoals} /> */}
             <NpcsContent npcNames={state.data?.npcs} />
             <ChooseOptionContent
               options={state.data?.options}
               toolConfig={{ schema: state.typeInfo.schema }}
             />
             {/* <JsonDisplay data={state.data?.updatedCharacterStats} /> */}
-            <UpdatePcStatsContent
-              updatedStats={state.data?.updatedPlayerCharacterStats}
+            <UpdateWorldContent
+              commands={state.data?.commands}
             />
           </Stack>
         </Stack>

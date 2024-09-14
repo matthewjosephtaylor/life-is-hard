@@ -4,4 +4,5 @@ export const GAME_ENTITY_CATEGORIES = [
   "location",
   "lore",
   "goal",
+  "command",
 ] as const;
