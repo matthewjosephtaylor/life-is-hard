@@ -16,10 +16,14 @@ const createAdventureSceneTypeInfo = () => {
   return TypeBoxes.createTypeInfo((Type) => {
     return Type.Object(
       {
-        sceneText: Type.String({
+        sceneSummary: Type.String({
           description:
-            "A paragraph of text describing the current scene as of the last interaction.",
+            "A short text describing the current scene as of the last interaction.",
         }),
+        // commands: Type.Array(Type.Any(), {
+        //   description:
+        //     "A list of command style objects used to update the entities inside the scene.",
+        // }),
         commands: Type.Array(
           Type.Object(
             {
@@ -28,26 +32,26 @@ const createAdventureSceneTypeInfo = () => {
                 Type.Literal("add"),
                 Type.Literal("remove"),
               ]),
-              target: Type.String({
+              targetEntityName: Type.String({
                 description:
-                  "The name of the entity to update, add, or remove.",
+                  "The name of the existing entity to update, add, or remove.",
               }),
-              changes: Type.Record(Type.String(), Type.Any()),
+              // changes: Type.Record(Type.String(), Type.Any()),
+              changes: Type.Any(),
             },
             {
               description:
-                "A list of commands to update the game state, including adding, removing, or updating entities. Only create commands for the last Assistant response! Clear out any previous commands! All game types/objects are also known as entities.",
+                "A list of command objects used to update the entity, or add/remove entities inside the scene from the players last interaction.",
             }
           )
         ),
-        npcs: Type.Array(
+        npcNames: Type.Array(
           Type.Union([
             ...npcNames.map((name) => Type.Literal(name)),
             Type.String(),
           ]),
           {
-            description:
-              "NPCs that are present in the scene, Names ONLY, it is OK to have an unknown character, MUST be a unique character name, not generic!",
+            description: "NPC names that are present in the scene",
           }
         ),
         currentLocation: Type.Optional(
@@ -83,9 +87,7 @@ const createAdventureSceneTypeInfo = () => {
         ),
       },
       {
-        $id: "SceneUpdate",
-        description:
-          "Update of the scene, including new commands. MUST BE A correct JSON OBJECT! DO NOT include any comments or extra text! Follow the TypeScript type exactly!",
+        $id: "UpdatedSceneState",
       }
     );
   });

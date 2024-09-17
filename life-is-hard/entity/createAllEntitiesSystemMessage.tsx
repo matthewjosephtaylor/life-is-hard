@@ -6,6 +6,8 @@ export const createAllEntitiesSystemMessage = () => {
 
   return [
     "Existing Entities:",
+    "```json",
+    "[",
     ...entities.map((entity) => {
       return JSON.stringify({
         entityType: entity.category,
@@ -13,5 +15,7 @@ export const createAllEntitiesSystemMessage = () => {
         ...(entity?.meta ?? {}),
       });
     }),
+    "]",
+    "```",
   ].join("\n");
 };

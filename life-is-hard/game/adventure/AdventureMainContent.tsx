@@ -69,7 +69,7 @@ export const AdventureMainContent = () => {
                 backgroundColor: Colors.from("black").alpha(0.6).toString(),
               }}
             >
-              <MarkdownTextDisplay text={state.data?.sceneText ?? "..."} />
+              <MarkdownTextDisplay text={state.data?.sceneSummary ?? "..."} />
             </Stack>
             <Stack
               sx={{
@@ -100,7 +100,7 @@ export const AdventureMainContent = () => {
             }}
           >
             {/* <GoalAcceptContent newGoals={state.data?.newGoals} /> */}
-            <NpcsContent npcNames={state.data?.npcs} />
+            <NpcsContent npcNames={state.data?.npcNames} />
             <ChooseOptionContent
               options={state.data?.options}
               toolConfig={{ schema: state.typeInfo.schema }}
