@@ -27,8 +27,8 @@ export const bootGameUrl = async () => {
 export const LifeIsHard = () => {
   useEffect(() => {
     hideLoadingScreen();
-    bootGameBrowser();
-    // bootGameUrl();
+    // bootGameBrowser();
+    bootGameUrl();
   }, []);
 
   return (
